@@ -1,6 +1,7 @@
 // @material-ui/icons
 import Dashboard from "@material-ui/icons/Dashboard";
 import Receipt from "@material-ui/icons/Receipt";
+import Account from "@material-ui/icons/PermIdentity";
 // core components/views
 import DashboardPage from "views/Dashboard/Dashboard.jsx";
 import NewExercise from "views/NewExercise/NewExercise.jsx";
@@ -8,7 +9,24 @@ import EditExercise from "views/EditExercise/EditExercise.jsx";
 import NewWorkout from "views/NewWorkout/NewWorkout.jsx";
 import EditWorkout from "views/EditWorkout/EditWorkout.jsx";
 
+import SignIn from "views/Login/SignIn/SignIn.jsx";
+import SignUp from "views/Login/SignUp/SignUp.jsx";
+
 const dashboardRoutes = [
+  {
+      path: "/signin",
+      sidebarName: "Sign In",
+      navbarName: "Sign In",
+      icon: Account,
+      component: SignIn
+  },
+  {
+      path: "/signup",
+      sidebarName: "Sign Up",
+      navbarName: "Sign Up",
+      icon: Account,
+      component: SignUp
+  },
   {
     path: "/dashboard",
     sidebarName: "Dashboard",
