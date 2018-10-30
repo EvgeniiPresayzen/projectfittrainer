@@ -54,7 +54,7 @@ class HeaderLinks extends React.Component {
             <Person className={classes.icons} />
             <Hidden mdUp implementation="css">
               <p onClick={this.handleClick} className={classes.linkText}>
-                Notification
+                testtestovii@gmail.com
               </p>
             </Hidden>
           </Button>
