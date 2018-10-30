@@ -5,7 +5,6 @@ import withStyles from "@material-ui/core/styles/withStyles";
 import GridItem from "components/Grid/GridItem.jsx";
 import GridContainer from "components/Grid/GridContainer.jsx";
 import Button from "components/CustomButtons/Button.jsx";
-import CustomInput from "components/CustomInput/CustomInput.jsx";
 import Card from "components/Card/Card.jsx";
 import CardHeader from "components/Card/CardHeader.jsx";
 import CardBody from "components/Card/CardBody.jsx";
@@ -49,9 +48,13 @@ const styles =  {
         fontSize: 20,
     },
     buttonArrow: {
+        marginLeft: '0px',
+        marginRight: '0px',
+        marginTop: '20px',
         backgroundColor: "#1cafc2"
     },
     buttonClose: {
+        marginTop: '20px',
         backgroundColor: "red"
     },
 };
@@ -105,29 +108,22 @@ class EditExercise extends React.Component {
     };
 
     render() {
-        const {classes, theme} = this.props;
+        const {classes} = this.props;
 
-        const selectStyles = {
-            input: base => ({
-                ...base,
-                color: theme.palette.text.primary,
-                '& input': {
-                    font: 'inherit',
-                },
-            }),
-        };
         let lists = this.state.exercises.map(item => {
             return (
                 <GridContainer key={item.id}>
-                  <GridItem xs={12} sm={12} md={4}>
+
+                  <GridItem xs={12} sm={12} md={5}>
                       <TextField
+                          fullWidth
                           label="Name"
                           value={item.exerciseName}
                           onChange={this.handleChange('exerciseName')}
                           margin="normal"
                       />
                   </GridItem>
-                  <GridItem xs={12} sm={12} md={4}>
+                  <GridItem xs={12} sm={12} md={3}>
                       <TextField
                           select
                           label="Measuremen type"
@@ -148,16 +144,26 @@ class EditExercise extends React.Component {
                           ))}
                       </TextField>
                   </GridItem>
-                  <Button variant="contained" color="primary" className={classes.buttonArrow}>
-                      <ArrowUp className={classes.iconSmall} />
-                  </Button>
-                  <Button variant="contained" color="primary" className={classes.buttonArrow}>
-                      <ArrowDown className={classes.iconSmall} />
-                  </Button>
-                  <Button variant="contained" color="primary" className={classes.buttonClose}>
-                      <Close className={classes.iconSmall} />
-                  </Button>
-            </GridContainer>)
+                    <GridItem xs={12} sm={12} md={1}>
+                        <Button variant="contained" fullWidth color="primary" className={classes.buttonArrow}>
+                            <ArrowUp className={classes.iconSmall} />
+                        </Button>
+                    </GridItem>
+                    <GridItem xs={12} sm={12} md={1}>
+                        <Button variant="contained" fullWidth color="primary" className={classes.buttonArrow}>
+                            <ArrowDown className={classes.iconSmall} />
+                        </Button>
+                    </GridItem>
+                    <GridItem xs={12} sm={12} md={1}>
+                        <Button variant="contained" fullWidth color="primary" className={classes.buttonClose}>
+                            <Close className={classes.iconSmall} />
+                        </Button>
+                    </GridItem>
+                    <GridItem xs={12} sm={12} md={12}>
+                        <hr/>
+                    </GridItem>
+            </GridContainer>
+            )
         });
         return (
             <GridContainer>

@@ -2,36 +2,21 @@ import React from "react";
 // @material-ui/core components
 import withStyles from "@material-ui/core/styles/withStyles";
 // core components
-import Quote from "components/Typography/Quote.jsx";
-import Muted from "components/Typography/Muted.jsx";
-import Primary from "components/Typography/Primary.jsx";
-import Info from "components/Typography/Info.jsx";
-import Success from "components/Typography/Success.jsx";
-import Warning from "components/Typography/Warning.jsx";
-import Danger from "components/Typography/Danger.jsx";
 import Card from "components/Card/Card.jsx";
 import CardHeader from "components/Card/CardHeader.jsx";
 import CardBody from "components/Card/CardBody.jsx";
+import Button from "components/CustomButtons/Button.jsx";
+import CardFooter from "components/Card/CardFooter.jsx";
+import GridItem from "components/Grid/GridItem.jsx";
+import GridContainer from "components/Grid/GridContainer.jsx";
+import TextField from "@material-ui/core/TextField/TextField";
+import MenuItem from "@material-ui/core/MenuItem/MenuItem";
+
+import ArrowUp from '@material-ui/icons/ArrowUpward';
+import ArrowDown from '@material-ui/icons/ArrowDownward';
+import Close from '@material-ui/icons/Close';
 
 const style = {
-  typo: {
-    paddingLeft: "25%",
-    marginBottom: "40px",
-    position: "relative"
-  },
-  note: {
-    fontFamily: '"Roboto", "Helvetica", "Arial", sans-serif',
-    bottom: "10px",
-    color: "#c0c1c2",
-    display: "block",
-    fontWeight: "400",
-    fontSize: "13px",
-    lineHeight: "13px",
-    left: "0",
-    marginLeft: "20px",
-    position: "absolute",
-    width: "260px"
-  },
   cardCategoryWhite: {
     color: "rgba(255,255,255,.62)",
     margin: "0",
@@ -47,109 +32,173 @@ const style = {
     fontFamily: "'Roboto', 'Helvetica', 'Arial', sans-serif",
     marginBottom: "3px",
     textDecoration: "none"
-  }
+  },
+    iconSmall: {
+        fontSize: 20,
+    },
+    buttonArrow: {
+        backgroundColor: "#1cafc2"
+    },
+    buttonClose: {
+        backgroundColor: "red"
+    },
+    typo: {
+        marginTop: "40px",
+        position: "relative"
+    }
 };
-function NewWorkout(props) {
-  const { classes } = props;
-  return (
-    <Card>
-      <CardHeader color="primary">
-        <h4 className={classes.cardTitleWhite}>New workout</h4>
-      </CardHeader>
-      <CardBody>
-        <div className={classes.typo}>
-          <div className={classes.note}>Header 1</div>
-          <h1>The Life of Material Dashboard</h1>
-        </div>
-        <div className={classes.typo}>
-          <div className={classes.note}>Header 2</div>
-          <h2>The Life of Material Dashboard</h2>
-        </div>
-        <div className={classes.typo}>
-          <div className={classes.note}>Header 3</div>
-          <h3>The Life of Material Dashboard</h3>
-        </div>
-        <div className={classes.typo}>
-          <div className={classes.note}>Header 4</div>
-          <h4>The Life of Material Dashboard</h4>
-        </div>
-        <div className={classes.typo}>
-          <div className={classes.note}>Header 5</div>
-          <h5>The Life of Material Dashboard</h5>
-        </div>
-        <div className={classes.typo}>
-          <div className={classes.note}>Header 6</div>
-          <h6>The Life of Material Dashboard</h6>
-        </div>
-        <div className={classes.typo}>
-          <div className={classes.note}>Paragraph</div>
-          <p>
-            I will be the leader of a company that ends up being worth billions
-            of dollars, because I got the answers. I understand culture. I am
-            the nucleus. I think that’s a responsibility that I have, to push
-            possibilities, to show people, this is the level that things could
-            be at.
-          </p>
-        </div>
-        <div className={classes.typo}>
-          <div className={classes.note}>Quote</div>
-          <Quote
-            text="I will be the leader of a company that ends up being worth billions of dollars, because I got the answers. I understand culture. I am the nucleus. I think that’s a responsibility that I have, to push possibilities, to show people, this is the level that things could be at."
-            author=" Kanye West, Musician"
-          />
-        </div>
-        <div className={classes.typo}>
-          <div className={classes.note}>Muted Text</div>
-          <Muted>
-            I will be the leader of a company that ends up being worth billions
-            of dollars, because I got the answers...
-          </Muted>
-        </div>
-        <div className={classes.typo}>
-          <div className={classes.note}>Primary Text</div>
-          <Primary>
-            I will be the leader of a company that ends up being worth billions
-            of dollars, because I got the answers...
-          </Primary>
-        </div>
-        <div className={classes.typo}>
-          <div className={classes.note}>Info Text</div>
-          <Info>
-            I will be the leader of a company that ends up being worth billions
-            of dollars, because I got the answers...
-          </Info>
-        </div>
-        <div className={classes.typo}>
-          <div className={classes.note}>Success Text</div>
-          <Success>
-            I will be the leader of a company that ends up being worth billions
-            of dollars, because I got the answers...
-          </Success>
-        </div>
-        <div className={classes.typo}>
-          <div className={classes.note}>Warning Text</div>
-          <Warning>
-            I will be the leader of a company that ends up being worth billions
-            of dollars, because I got the answers...
-          </Warning>
-        </div>
-        <div className={classes.typo}>
-          <div className={classes.note}>Danger Text</div>
-          <Danger>
-            I will be the leader of a company that ends up being worth billions
-            of dollars, because I got the answers...
-          </Danger>
-        </div>
-        <div className={classes.typo}>
-          <div className={classes.note}>Small Tag</div>
-          <h2>
-            Header with small subtitle<br />
-            <small>Use "Small" tag for the headers</small>
-          </h2>
-        </div>
-      </CardBody>
-    </Card>
-  );
+
+const exercises = [
+    {
+        exerciseName: 'test#1',
+        typeExercise: 'kilograms'
+    },
+    {
+        exerciseName: 'test#2',
+        typeExercise: 'kilograms'
+    },
+    {
+        exerciseName: 'test#3',
+        typeExercise: 'kilograms'
+    },
+    {
+        exerciseName: 'test#4',
+        typeExercise: 'kilograms'
+    },
+    {
+        exerciseName: 'test#5',
+        typeExercise: 'kilograms'
+    },
+];
+class NewWorkout extends React.Component {
+    state = {
+        workout: [
+            {
+                exercise: 'test#1',
+                typeExercise: 'kilograms',
+                repeat: '2',
+                measurement: '5'
+            },
+            {
+                exercise: 'test#2',
+                typeExercise: 'kilograms',
+                repeat: '3',
+                measurement: '3'
+            },
+            {
+                exercise: 'test#3',
+                typeExercise: 'kilograms',
+                repeat: '4',
+                measurement: '2'
+            },
+            {
+                exercise: 'test#4',
+                typeExercise: 'kilograms',
+                repeat: '1',
+                measurement: '3'
+            },
+        ]
+    };
+
+    handleChange = name => event => {
+        this.setState({
+            [name]: event.target.value,
+        });
+    };
+
+    render() {
+        const {classes} = this.props;
+
+        let lists = this.state.workout.map(item => {
+            return (
+                <div>
+                    <GridContainer key={item.id}>
+                        <GridItem xs={12} sm={12} md={2}>
+                            <TextField
+                                select
+                                label="Name Exercise"
+                                fullWidth
+                                value={item.exercise}
+                                onChange={this.handleChange('typeExercise')}
+                                SelectProps={{
+                                    MenuProps: {
+                                        className: classes.menu,
+                                    },
+                                }}
+                                margin="normal"
+                            >
+                                {exercises.map(option => (
+                                    <MenuItem key={option.exerciseName} value={option.exerciseName}>
+                                        {option.exerciseName}
+                                    </MenuItem>
+                                ))}
+                            </TextField>
+                        </GridItem>
+                        <GridItem xs={12} sm={12} md={3}>
+                            <TextField
+                                fullWidth
+                                label="Repeat"
+                                value={item.repeat}
+                                onChange={this.handleChange('repeat')}
+                                margin="normal"
+                            />
+                        </GridItem>
+                        <GridItem xs={12} sm={12} md={3}>
+                            <TextField
+                                fullWidth
+                                label="Measurement"
+                                value={item.measurement}
+                                onChange={this.handleChange('repeat')}
+                                margin="normal"
+                            />
+                        </GridItem>
+                        <GridItem xs={12} sm={12} md={1}>
+                            <div className={classes.typo}>
+                                kg
+                            </div>
+                        </GridItem>
+
+                        <GridItem xs={12} sm={12} md={1}>
+                            <Button variant="contained" fullWidth color="primary" className={classes.buttonArrow}>
+                                <ArrowUp className={classes.iconSmall} />
+                            </Button>
+                        </GridItem>
+                        <GridItem xs={12} sm={12} md={1}>
+                            <Button variant="contained" fullWidth color="primary" className={classes.buttonArrow}>
+                                <ArrowDown className={classes.iconSmall} />
+                            </Button>
+                        </GridItem>
+                        <GridItem xs={12} sm={12} md={1}>
+                            <Button variant="contained" fullWidth color="primary" className={classes.buttonClose}>
+                                <Close className={classes.iconSmall} />
+                            </Button>
+                        </GridItem>
+                        <GridItem xs={12} sm={12} md={12}>
+                            <hr/>
+                        </GridItem>
+                    </GridContainer>
+                </div>
+            )
+        });
+        return (
+            <GridContainer>
+                <GridItem xs={12} sm={12} md={12}>
+                    <Card>
+                        <CardHeader color="primary">
+                            <h4 className={classes.cardTitleWhite}>New workout</h4>
+                        </CardHeader>
+                        <CardBody>
+                            <Button color="primary">ADD EXERCISE</Button>
+                            {lists}
+                        </CardBody>
+                        <CardFooter>
+                            <Button color="primary">CREATE WORKOUT</Button>
+                        </CardFooter>
+                    </Card>
+                </GridItem>
+            </GridContainer>
+        );
+    }
 }
 
 export default withStyles(style)(NewWorkout);

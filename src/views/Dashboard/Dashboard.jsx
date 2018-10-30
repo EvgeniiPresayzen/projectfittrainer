@@ -27,7 +27,6 @@ class Dashboard extends React.Component {
                 <Button color="primary">ADD NEW WORKOUT</Button>
             </GridItem>
             <GridItem xs={12} sm={6} md={3}>
-
                 <Card>
                     <InfiniteCalendar
                         width={400}

@@ -14,16 +14,6 @@ import CardHeader from "components/Card/CardHeader.jsx";
 import CardBody from "components/Card/CardBody.jsx";
 import CardFooter from "components/Card/CardFooter.jsx";
 
-const suggestions = [
-  { label: 'kilometers' },
-  { label: 'time' },
-  { label: 'kilograms' },
-].map(suggestion => ({
-  value: suggestion.label,
-  label: suggestion.label,
-}));
-
-
 const styles = theme => ({
   cardCategoryWhite: {
     color: "rgba(255,255,255,.62)",
@@ -70,17 +60,8 @@ class NewExercise extends React.Component {
   };
 
   render() {
-    const { classes, theme } = this.props;
+    const { classes }= this.props;
 
-    const selectStyles = {
-      input: base => ({
-        ...base,
-        color: theme.palette.text.primary,
-        '& input': {
-          font: 'inherit',
-        },
-      }),
-    };
     return (
       <div>
         <GridContainer>
