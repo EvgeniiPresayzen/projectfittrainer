@@ -5,13 +5,19 @@ import withStyles from "@material-ui/core/styles/withStyles";
 import GridItem from "components/Grid/GridItem.jsx";
 import GridContainer from "components/Grid/GridContainer.jsx";
 import Button from "components/CustomButtons/Button.jsx";
-import Table from "components/Table/Table.jsx";
+import CustomInput from "components/CustomInput/CustomInput.jsx";
 import Card from "components/Card/Card.jsx";
 import CardHeader from "components/Card/CardHeader.jsx";
 import CardBody from "components/Card/CardBody.jsx";
 import CardFooter from "components/Card/CardFooter.jsx";
+import TextField from "@material-ui/core/TextField/TextField";
+import MenuItem from "@material-ui/core/MenuItem/MenuItem";
 
-const styles = {
+import ArrowUp from '@material-ui/icons/ArrowUpward';
+import ArrowDown from '@material-ui/icons/ArrowDownward';
+import Close from '@material-ui/icons/Close';
+
+const styles =  {
   cardCategoryWhite: {
     "&,& a,& a:hover,& a:focus": {
       color: "rgba(255,255,255,.62)",
@@ -38,39 +44,139 @@ const styles = {
       fontWeight: "400",
       lineHeight: "1"
     }
-  }
+  },
+    iconSmall: {
+        fontSize: 20,
+    },
+    buttonArrow: {
+        backgroundColor: "#1cafc2"
+    },
+    buttonClose: {
+        backgroundColor: "red"
+    },
 };
 
-function EditExercise(props) {
-  const { classes } = props;
-  return (
-    <GridContainer>
-      <GridItem xs={12} sm={12} md={12}>
-        <Card>
-          <CardHeader color="primary">
-            <h4 className={classes.cardTitleWhite}>Edit exercise</h4>
-          </CardHeader>
-          <CardBody>
-            <Table
-              tableHeaderColor="primary"
-              tableHead={["Name", "Country", "City", "Salary"]}
-              tableData={[
-                ["Dakota Rice", "Niger", "Oud-Turnhout", "$36,738"],
-                ["Minerva Hooper", "Curaçao", "Sinaai-Waas", "$23,789"],
-                ["Sage Rodriguez", "Netherlands", "Baileux", "$56,142"],
-                ["Philip Chaney", "Korea, South", "Overland Park", "$38,735"],
-                ["Doris Greene", "Malawi", "Feldkirchen in Kärnten", "$63,542"],
-                ["Mason Porter", "Chile", "Gloucester", "$78,615"]
-              ]}
-            />
-          </CardBody>
-          <CardFooter>
-            <Button color="primary">Update EXERCISE</Button>
-          </CardFooter>
-        </Card>
-      </GridItem>
-    </GridContainer>
-  );
+const typeExercise = [
+    {
+        value: 'kilograms',
+        label: 'kilograms',
+    },
+    {
+        value: 'kilometers',
+        label: 'kilometers',
+    },
+    {
+        value: 'time',
+        label: 'time',
+    }
+];
+
+class EditExercise extends React.Component {
+    state = {
+        exercises: [
+            {
+              exerciseName: 'test#1',
+              typeExercise: 'kilograms'
+            },
+            {
+                exerciseName: 'test#2',
+                typeExercise: 'kilograms'
+            },
+            {
+                exerciseName: 'test#3',
+                typeExercise: 'kilograms'
+            },
+            {
+                exerciseName: 'test#4',
+                typeExercise: 'kilograms'
+            },
+            {
+                exerciseName: 'test#5',
+                typeExercise: 'kilograms'
+            },
+        ],
+       /* type: 'kilograms',*/
+    };
+
+    handleChange = name => event => {
+        this.setState({
+            [name]: event.target.value,
+        });
+    };
+
+    render() {
+        const {classes, theme} = this.props;
+
+        const selectStyles = {
+            input: base => ({
+                ...base,
+                color: theme.palette.text.primary,
+                '& input': {
+                    font: 'inherit',
+                },
+            }),
+        };
+        let lists = this.state.exercises.map(item => {
+            return (
+                <GridContainer key={item.id}>
+                  <GridItem xs={12} sm={12} md={4}>
+                      <TextField
+                          label="Name"
+                          value={item.exerciseName}
+                          onChange={this.handleChange('exerciseName')}
+                          margin="normal"
+                      />
+                  </GridItem>
+                  <GridItem xs={12} sm={12} md={4}>
+                      <TextField
+                          select
+                          label="Measuremen type"
+                          fullWidth
+                          value={item.typeExercise}
+                          onChange={this.handleChange('typeExercise')}
+                          SelectProps={{
+                              MenuProps: {
+                                  className: classes.menu,
+                              },
+                          }}
+                          margin="normal"
+                      >
+                          {typeExercise.map(option => (
+                              <MenuItem key={option.value} value={option.value}>
+                                  {option.label}
+                              </MenuItem>
+                          ))}
+                      </TextField>
+                  </GridItem>
+                  <Button variant="contained" color="primary" className={classes.buttonArrow}>
+                      <ArrowUp className={classes.iconSmall} />
+                  </Button>
+                  <Button variant="contained" color="primary" className={classes.buttonArrow}>
+                      <ArrowDown className={classes.iconSmall} />
+                  </Button>
+                  <Button variant="contained" color="primary" className={classes.buttonClose}>
+                      <Close className={classes.iconSmall} />
+                  </Button>
+            </GridContainer>)
+        });
+        return (
+            <GridContainer>
+                <GridItem xs={12} sm={12} md={12}>
+                    <Card>
+                        <CardHeader color="primary">
+                            <h4 className={classes.cardTitleWhite}>Edit exercise</h4>
+                        </CardHeader>
+                        <CardBody>
+                                {lists}
+                        </CardBody>
+                        <CardFooter>
+                            <Button color="primary">Update EXERCISE</Button>
+                        </CardFooter>
+                    </Card>
+                </GridItem>
+            </GridContainer>
+        );
+    }
 }
 
 export default withStyles(styles)(EditExercise);

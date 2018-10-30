@@ -1,13 +1,9 @@
 import React from "react";
 // @material-ui/core components
 
-import Select from 'react-select';
 import { withStyles } from '@material-ui/core/styles';
-import Typography from '@material-ui/core/Typography';
 import TextField from '@material-ui/core/TextField';
-import Paper from '@material-ui/core/Paper';
 import MenuItem from '@material-ui/core/MenuItem';
-import { emphasize } from '@material-ui/core/styles/colorManipulator';
 // core components
 import GridItem from "components/Grid/GridItem.jsx";
 import GridContainer from "components/Grid/GridContainer.jsx";
@@ -48,7 +44,7 @@ const styles = theme => ({
 });
 
 
-const currencies = [
+const typeExercise = [
   {
     value: 'kilograms',
     label: 'kilograms',
@@ -117,7 +113,7 @@ class NewExercise extends React.Component {
                       }}
                       margin="normal"
                     >
-                      {currencies.map(option => (
+                      {typeExercise.map(option => (
                         <MenuItem key={option.value} value={option.value}>
                           {option.label}
                         </MenuItem>
