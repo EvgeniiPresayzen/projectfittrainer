@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 // @material-ui/core
 import withStyles from "@material-ui/core/styles/withStyles";
 // core components
+import Button from "components/CustomButtons/Button.jsx";
 import GridItem from "components/Grid/GridItem.jsx";
 import GridContainer from "components/Grid/GridContainer.jsx";
 import Card from "components/Card/Card.jsx";
@@ -21,16 +22,21 @@ class Dashboard extends React.Component {
     return (
       <div>
         <GridContainer>
-          <GridItem xs={12} sm={6} md={3}>
-              <Card>
-                  <InfiniteCalendar
-                      width={400}
-                      height={600}
-                      selected={today}
-                      disabledDays={[0,6]}
-                      minDate={lastWeek}
-                  />
-              </Card>
+            <GridItem xs={12} sm={12} md={12}>
+                <Button color="primary">ADD NEW EXERCISE</Button>
+                <Button color="primary">ADD NEW WORKOUT</Button>
+            </GridItem>
+            <GridItem xs={12} sm={6} md={3}>
+
+                <Card>
+                    <InfiniteCalendar
+                        width={400}
+                        height={600}
+                        selected={today}
+                        disabledDays={[0,6]}
+                        minDate={lastWeek}
+                    />
+                </Card>
           </GridItem>
         </GridContainer>
       </div>
