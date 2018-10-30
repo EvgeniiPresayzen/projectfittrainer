@@ -2,6 +2,10 @@ import React from "react";
 // @material-ui/core components
 
 import { withStyles } from '@material-ui/core/styles';
+import Visibility from '@material-ui/icons/Visibility';
+import VisibilityOff from '@material-ui/icons/VisibilityOff';
+import IconButton from '@material-ui/core/IconButton';
+import InputAdornment from '@material-ui/core/InputAdornment';
 // core components
 import GridItem from "components/Grid/GridItem.jsx";
 import GridContainer from "components/Grid/GridContainer.jsx";
@@ -34,7 +38,18 @@ const styles = theme => ({
 
 class NewExercise extends React.Component {
     state = {
+        email: '',
+        passwordOne: '',
+        passwordTwo: '',
+        showPassword: false,
+    };
 
+    handleChange = prop => event => {
+        this.setState({ [prop]: event.target.value });
+    };
+
+    handleClickShowPassword = () => {
+        this.setState(state => ({ showPassword: !state.showPassword }));
     };
 
     handleChange = name => event => {
@@ -43,8 +58,11 @@ class NewExercise extends React.Component {
         });
     };
 
+
     render() {
         const { classes }= this.props;
+
+        let typePassword = this.state.showPassword ? 'text' : 'password';
 
         return (
             <div>
@@ -55,45 +73,69 @@ class NewExercise extends React.Component {
                                 <h4 className={classes.cardTitleWhite}>Register with Fit Trainer App</h4>
                                 <p className={classes.cardCategoryWhite}>Please, enter your email and password</p>
                             </CardHeader>
-                            <CardBody>
-                                <GridContainer>
-                                    <GridItem xs={12} sm={12} md={12}>
-                                        <CustomInput
-                                            labelText="email address"
-                                            id="email"
-                                            formControlProps={{
-                                                fullWidth: true
-                                            }}
-                                        />
-                                        <CustomInput
-                                            labelText="Password"
-                                            id="passwordOne"
-                                            formControlProps={{
-                                                fullWidth: true
-                                            }}
-                                            inputProps={{
-                                                type: "password"
-                                            }}
-                                        />
-                                        <CustomInput
-                                            labelText="Password"
-                                            id="passwordTwo"
-                                            formControlProps={{
-                                                fullWidth: true
-                                            }}
-                                            inputProps={{
-                                                type: "password"
-                                            }}
-                                        />
-                                    </GridItem>
-                                </GridContainer>
-                            </CardBody>
-                            <CardFooter>
-                                <Button color="primary">SIGN UP</Button>
-                            </CardFooter>
-                            <CardFooter>
-                                <a href="#">already have an account? sign-in</a>
-                            </CardFooter>
+                            <form autoComlete="off">
+                                <CardBody>
+                                    <GridContainer>
+                                        <GridItem xs={12} sm={12} md={12}>
+                                            <CustomInput
+                                                labelText="email address"
+                                                id="email"
+                                                formControlProps={{
+                                                    fullWidth: true
+                                                }}
+                                            />
+                                            <CustomInput
+                                                labelText="Password"
+                                                id="passwordOne"
+                                                onChange={this.handleChange('passwordTwo')}
+                                                formControlProps={{
+                                                    fullWidth: true
+                                                }}
+                                                inputProps={{
+                                                    type:typePassword,
+                                                    endAdornment: (
+                                                        <InputAdornment variant="filled" position="end">
+                                                            <IconButton
+                                                                aria-label="Toggle password visibility"
+                                                                onClick={this.handleClickShowPassword}
+                                                            >
+                                                                {this.state.showPassword ? <VisibilityOff /> : <Visibility />}
+                                                            </IconButton>
+                                                        </InputAdornment>
+                                                    ),
+                                                }}
+                                            />
+                                            <CustomInput
+                                                labelText="Repeat Password"
+                                                id="passwordTwo"
+                                                onChange={this.handleChange('passwordOne')}
+                                                formControlProps={{
+                                                    fullWidth: true
+                                                }}
+                                                inputProps={{
+                                                    type:typePassword,
+                                                    endAdornment: (
+                                                        <InputAdornment variant="filled" position="end">
+                                                            <IconButton
+                                                                aria-label="Toggle password visibility"
+                                                                onClick={this.handleClickShowPassword}
+                                                            >
+                                                                {this.state.showPassword ? <VisibilityOff /> : <Visibility />}
+                                                            </IconButton>
+                                                        </InputAdornment>
+                                                    ),
+                                                }}
+                                            />
+                                        </GridItem>
+                                    </GridContainer>
+                                </CardBody>
+                                <CardFooter>
+                                    <Button color="primary">SIGN UP</Button>
+                                </CardFooter>
+                                <CardFooter>
+                                    <a href="#">already have an account? sign-in</a>
+                                </CardFooter>
+                            </form>
                         </Card>
                     </GridItem>
                 </GridContainer>

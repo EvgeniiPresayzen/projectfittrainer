@@ -37,10 +37,12 @@ const style = {
         fontSize: 20,
     },
     buttonArrow: {
-        backgroundColor: "#1cafc2"
+        backgroundColor: "#1cafc2",
+        marginTop: '20px',
     },
     buttonClose: {
-        backgroundColor: "red"
+        backgroundColor: "#ff9a00",
+        marginTop: '20px',
     },
     typo: {
         marginTop: "40px",

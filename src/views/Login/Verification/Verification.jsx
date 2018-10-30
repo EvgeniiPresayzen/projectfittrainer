@@ -2,7 +2,6 @@ import React from "react";
 // @material-ui/core components
 
 import { withStyles } from '@material-ui/core/styles';
-
 // core components
 import GridItem from "components/Grid/GridItem.jsx";
 import GridContainer from "components/Grid/GridContainer.jsx";
@@ -12,10 +11,6 @@ import Card from "components/Card/Card.jsx";
 import CardHeader from "components/Card/CardHeader.jsx";
 import CardBody from "components/Card/CardBody.jsx";
 import CardFooter from "components/Card/CardFooter.jsx";
-import InputAdornment from "@material-ui/core/InputAdornment/InputAdornment";
-import IconButton from "@material-ui/core/IconButton/IconButton";
-import VisibilityOff from '@material-ui/icons/VisibilityOff';
-import Visibility from '@material-ui/icons/Visibility';
 
 const styles = theme => ({
     cardCategoryWhite: {
@@ -39,17 +34,7 @@ const styles = theme => ({
 
 class NewExercise extends React.Component {
     state = {
-        email: '',
-        password: '',
-        showPassword: false,
-    };
 
-    handleChange = prop => event => {
-        this.setState({ [prop]: event.target.value });
-    };
-
-    handleClickShowPassword = () => {
-        this.setState(state => ({ showPassword: !state.showPassword }));
     };
 
     handleChange = name => event => {
@@ -58,11 +43,8 @@ class NewExercise extends React.Component {
         });
     };
 
-
     render() {
         const { classes }= this.props;
-
-        let typePassword = this.state.showPassword ? 'text' : 'password';
 
         return (
             <div>
@@ -70,51 +52,48 @@ class NewExercise extends React.Component {
                     <GridItem xs={12} sm={12} md={12}>
                         <Card>
                             <CardHeader color="primary">
-                                <h4 className={classes.cardTitleWhite}>Sign into Fit Trainer App</h4>
-                                <p className={classes.cardCategoryWhite}>Please, enter your email and password</p>
+                                <h4 className={classes.cardTitleWhite}>
+                                    Email verification to finish registration with Fit Trainer App
+                                </h4>
+                                <p className={classes.cardCategoryWhite}>Please, confirm email address</p>
                             </CardHeader>
                             <CardBody>
                                 <GridContainer>
                                     <GridItem xs={12} sm={12} md={12}>
                                         <CustomInput
-                                            labelText="email address"
+                                            labelText="Email address"
                                             id="email"
+                                            value="test@tes.com"
                                             formControlProps={{
                                                 fullWidth: true
                                             }}
                                             inputProps={{
-                                                type: "email"
+                                                type: "email",
+                                                value: "testtestovii@gmail.com",
+                                                disabled: true
                                             }}
                                         />
                                         <CustomInput
-                                            labelText="Password"
+                                            labelText="VerificationCode"
                                             id="password"
-                                            onChange={this.handleChange('password')}
+                                            disabled
                                             formControlProps={{
                                                 fullWidth: true
                                             }}
                                             inputProps={{
-                                                type:typePassword,
-                                                endAdornment: (
-                                                    <InputAdornment variant="filled" position="end">
-                                                        <IconButton
-                                                            aria-label="Toggle password visibility"
-                                                            onClick={this.handleClickShowPassword}
-                                                        >
-                                                            {this.state.showPassword ? <VisibilityOff /> : <Visibility />}
-                                                        </IconButton>
-                                                    </InputAdornment>
-                                                ),
+                                                type: "password",
+                                                value: "0123456",
+                                                disabled: true
                                             }}
                                         />
                                     </GridItem>
                                 </GridContainer>
                             </CardBody>
                             <CardFooter>
-                                <Button color="primary">SIGN IN</Button>
+                                <Button color="primary">VERIFY EMAIL</Button>
                             </CardFooter>
                             <CardFooter>
-                                <a href="#">first time user? sign-up</a>
+                                <a href="#">already have an a account? sign up</a>
                             </CardFooter>
                         </Card>
                     </GridItem>

@@ -11,6 +11,7 @@ import EditWorkout from "views/EditWorkout/EditWorkout.jsx";
 
 import SignIn from "views/Login/SignIn/SignIn.jsx";
 import SignUp from "views/Login/SignUp/SignUp.jsx";
+import Verification from "views/Login/Verification/Verification.jsx";
 
 const dashboardRoutes = [
   {
@@ -27,6 +28,13 @@ const dashboardRoutes = [
       icon: Account,
       component: SignUp
   },
+    {
+        path: "/verification",
+        sidebarName: "Email verification",
+        navbarName: "Email verification",
+        icon: Account,
+        component: Verification
+    },
   {
     path: "/dashboard",
     sidebarName: "Dashboard",

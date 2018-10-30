@@ -48,14 +48,12 @@ const styles =  {
         fontSize: 20,
     },
     buttonArrow: {
-        marginLeft: '0px',
-        marginRight: '0px',
         marginTop: '20px',
         backgroundColor: "#1cafc2"
     },
     buttonClose: {
         marginTop: '20px',
-        backgroundColor: "red"
+        backgroundColor: "#ff9a00"
     },
 };
 
