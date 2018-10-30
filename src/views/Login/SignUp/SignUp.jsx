@@ -68,17 +68,21 @@ class NewExercise extends React.Component {
                                         <CustomInput
                                             labelText="Password"
                                             id="passwordOne"
-                                            type="password"
                                             formControlProps={{
                                                 fullWidth: true
+                                            }}
+                                            inputProps={{
+                                                type: "password"
                                             }}
                                         />
                                         <CustomInput
                                             labelText="Password"
                                             id="passwordTwo"
-                                            type="password"
                                             formControlProps={{
                                                 fullWidth: true
+                                            }}
+                                            inputProps={{
+                                                type: "password"
                                             }}
                                         />
                                     </GridItem>

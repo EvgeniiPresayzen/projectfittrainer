@@ -2,6 +2,7 @@ import React from "react";
 // @material-ui/core components
 
 import { withStyles } from '@material-ui/core/styles';
+import TextField from '@material-ui/core/TextField';
 // core components
 import GridItem from "components/Grid/GridItem.jsx";
 import GridContainer from "components/Grid/GridContainer.jsx";
@@ -61,17 +62,21 @@ class NewExercise extends React.Component {
                                         <CustomInput
                                             labelText="email address"
                                             id="email"
-                                            type='email'
                                             formControlProps={{
                                                 fullWidth: true
+                                            }}
+                                            inputProps={{
+                                                type: "email"
                                             }}
                                         />
                                         <CustomInput
                                             labelText="Password"
-                                            type="password"
                                             id="password"
                                             formControlProps={{
                                                 fullWidth: true
+                                            }}
+                                            inputProps={{
+                                                type: "password"
                                             }}
                                         />
                                     </GridItem>
