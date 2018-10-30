@@ -65,7 +65,7 @@ class NewExercise extends React.Component {
         let typePassword = this.state.showPassword ? 'text' : 'password';
 
         return (
-            <div>
+            <form>
                 <GridContainer>
                     <GridItem xs={12} sm={12} md={12}>
                         <Card>
@@ -119,7 +119,7 @@ class NewExercise extends React.Component {
                         </Card>
                     </GridItem>
                 </GridContainer>
-            </div>
+            </form>
         );
     }
 }

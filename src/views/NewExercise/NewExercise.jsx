@@ -14,7 +14,7 @@ import CardHeader from "components/Card/CardHeader.jsx";
 import CardBody from "components/Card/CardBody.jsx";
 import CardFooter from "components/Card/CardFooter.jsx";
 
-const styles = theme => ({
+const styles = ({
   cardCategoryWhite: {
     color: "rgba(255,255,255,.62)",
     margin: "0",
@@ -50,6 +50,7 @@ const typeExercise = [
 ];
 class NewExercise extends React.Component {
   state = {
+    exerciseName: '',
     type: 'kilograms',
   };
 
@@ -59,57 +60,72 @@ class NewExercise extends React.Component {
     });
   };
 
+  handleChangeName = event => {
+    this.setState({value: event.target.value});
+  };
+
+  handleSubmit(event) {
+      alert('A name was submitted: ' + this.state);
+      event.preventDefault();
+  }
+
   render() {
     const { classes }= this.props;
 
     return (
-      <div>
-        <GridContainer>
-          <GridItem xs={12} sm={12} md={12}>
-            <Card>
-              <CardHeader color="primary">
-                <h4 className={classes.cardTitleWhite}>Create new exercise</h4>
-                <p className={classes.cardCategoryWhite}>Please, add a new exercise name and measurement type</p>
-              </CardHeader>
-              <CardBody>
-                <GridContainer>
-                  <GridItem xs={12} sm={12} md={12}>
-                    <CustomInput
-                      labelText="Exercise Name"
-                      id="username"
-                      formControlProps={{
-                        fullWidth: true
-                      }}
-                    />
-                    <TextField
-                      select
-                      label="Measuremen type"
-                      fullWidth
-                      value={this.state.type}
-                      onChange={this.handleChange('type')}
-                      SelectProps={{
-                        MenuProps: {
-                          className: classes.menu,
-                        },
-                      }}
-                      margin="normal"
-                    >
-                      {typeExercise.map(option => (
-                        <MenuItem key={option.value} value={option.value}>
-                          {option.label}
-                        </MenuItem>
-                      ))}
-                    </TextField>
-                  </GridItem>
-                </GridContainer>
-              </CardBody>
-              <CardFooter>
-                <Button color="primary">CREATE EXERCISE</Button>
-              </CardFooter>
-            </Card>
-          </GridItem>
-        </GridContainer>
-      </div>
+        <div>
+          <form onSubmit={this.handleSubmit}>
+            <GridContainer>
+              <GridItem xs={12} sm={12} md={12}>
+                <Card>
+                  <CardHeader color="primary">
+                    <h4 className={classes.cardTitleWhite}>Create new exercise</h4>
+                    <p className={classes.cardCategoryWhite}>Please, add a new exercise name and measurement type</p>
+                  </CardHeader>
+                  <CardBody>
+                    <GridContainer>
+                      <GridItem xs={12} sm={12} md={12}>
+                        <CustomInput
+                          labelText="Exercise Name"
+                          id="exerciseName"
+                          formControlProps={{
+                            fullWidth: true
+                          }}
+                          inputProps={{
+                              onChange: this.handleChangeName,
+                              value: this.state.exerciseName
+                          }}
+                        />
+                        <TextField
+                          select
+                          label="Measuremen type"
+                          fullWidth
+                          value={this.state.type}
+                          onChange={this.handleChange('type')}
+                          SelectProps={{
+                            MenuProps: {
+                              className: classes.menu,
+                            },
+                          }}
+                          margin="normal"
+                        >
+                          {typeExercise.map(option => (
+                            <MenuItem key={option.value} value={option.value}>
+                              {option.label}
+                            </MenuItem>
+                          ))}
+                        </TextField>
+                      </GridItem>
+                    </GridContainer>
+                  </CardBody>
+                  <CardFooter>
+                    <Button color="primary">CREATE EXERCISE</Button>
+                  </CardFooter>
+                </Card>
+              </GridItem>
+            </GridContainer>
+          </form>
+        </div>
     );
   }
 }
