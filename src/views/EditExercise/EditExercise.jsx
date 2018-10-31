@@ -102,13 +102,26 @@ class EditExercise extends React.Component {
         const items = this.state.exercises[id];
         items[name] = event.target.value;
         this.setState({
-            exercise: items
+            items,
         });
     };
 
     handleSubmit = event => {
         event.preventDefault();
         console.log(this.state);
+    };
+
+    addExercise = () => {
+        const newExercise = {
+            exercise: '',
+            typeExercise: 'kilograms',
+            repeat: '',
+            measurement: ''
+        };
+        this.state.workout.unshift(newExercise);
+        this.setState({
+            workout: this.state.workout,
+        });
     };
 
     render() {

@@ -106,7 +106,7 @@ class NewWorkout extends React.Component {
         const items = this.state.workout[id];
         items[name] = event.target.value;
         this.setState({
-            exercise: items
+            items,
         });
     };
 
@@ -115,6 +115,25 @@ class NewWorkout extends React.Component {
         console.log(this.state);
     };
 
+    addExercise = () => {
+        const newExercise = {
+            exercise: '',
+            typeExercise: 'kilograms',
+            repeat: '',
+            measurement: ''
+        };
+        this.state.workout.unshift(newExercise);
+        this.setState({
+            workout: this.state.workout,
+        });
+    };
+
+    deleteExercise = id => event => {
+        this.state.workout.splice(id, 1);
+        this.setState({
+            workout: this.state.workout,
+        });
+    };
 
     render() {
         const {classes} = this.props;
@@ -180,7 +199,13 @@ class NewWorkout extends React.Component {
                             </Button>
                         </GridItem>
                         <GridItem xs={12} sm={12} md={1}>
-                            <Button variant="contained" fullWidth color="primary" className={classes.buttonClose}>
+                            <Button
+                                variant="contained"
+                                fullWidth
+                                color="primary"
+                                className={classes.buttonClose}
+                                onClick={this.deleteExercise(id)}
+                            >
                                 <Close className={classes.iconSmall} />
                             </Button>
                         </GridItem>
@@ -199,7 +224,7 @@ class NewWorkout extends React.Component {
                                 <h4 className={classes.cardTitleWhite}>Edit workout</h4>
                             </CardHeader>
                             <CardBody>
-                                <Button color="primary">ADD EXERCISE</Button>
+                                <Button color="primary" onClick={this.addExercise}>ADD EXERCISE</Button>
                                 {lists}
                             </CardBody>
                             <CardFooter>
