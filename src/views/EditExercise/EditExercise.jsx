@@ -76,8 +76,8 @@ class EditExercise extends React.Component {
     state = {
         exercises: [
             {
-              exerciseName: 'test#1',
-              typeExercise: 'kilograms'
+                exerciseName: 'test#1',
+                typeExercise: 'kilograms'
             },
             {
                 exerciseName: 'test#2',
@@ -95,39 +95,46 @@ class EditExercise extends React.Component {
                 exerciseName: 'test#5',
                 typeExercise: 'kilograms'
             },
-        ],
-       /* type: 'kilograms',*/
+        ]
     };
 
-    handleChange = name => event => {
-        this.setState({
-            [name]: event.target.value,
-        });
+    handleChange = (name, id) => event => {
+        console.log(id);
+        console.log(this.state);
+        this.setState(state => ({
+            exercises : {
+                ...state.exercises,
+                [id]: {
+                    ...state.exercises[id],
+                    [name]: event.target.value
+                }
+            }
+        }));
+        console.log(this.state);
     };
 
     render() {
         const {classes} = this.props;
 
-        let lists = this.state.exercises.map(item => {
+        let list = this.state.exercises.map((item, id) => {
             return (
-                <GridContainer key={item.id}>
-
+                <GridContainer key={id}>
                   <GridItem xs={12} sm={12} md={5}>
                       <TextField
                           fullWidth
                           label="Name"
                           value={item.exerciseName}
-                          onChange={this.handleChange('exerciseName')}
+                          onChange={this.handleChange('exerciseName', id)}
                           margin="normal"
                       />
                   </GridItem>
                   <GridItem xs={12} sm={12} md={3}>
                       <TextField
                           select
-                          label="Measuremen type"
+                          label="Measurement type"
                           fullWidth
                           value={item.typeExercise}
-                          onChange={this.handleChange('typeExercise')}
+                          onChange={this.handleChange('typeExercise', id)}
                           SelectProps={{
                               MenuProps: {
                                   className: classes.menu,
@@ -171,7 +178,7 @@ class EditExercise extends React.Component {
                             <h4 className={classes.cardTitleWhite}>Edit exercise</h4>
                         </CardHeader>
                         <CardBody>
-                                {lists}
+                                {list}
                         </CardBody>
                         <CardFooter>
                             <Button color="primary">Update EXERCISE</Button>

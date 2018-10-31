@@ -62,11 +62,6 @@ class NewExercise extends React.Component {
         });
     };
 
-    handleChangeName = event => {
-        this.setState({exerciseName: event.target.value});
-        console.log(this.state);
-    };
-
     handleSubmit = event => {
         event.preventDefault();
         console.log(this.state);
@@ -95,7 +90,7 @@ class NewExercise extends React.Component {
                                                     fullWidth: true
                                                 }}
                                                 inputProps={{
-                                                    onChange: this.handleChangeName,
+                                                    onChange: this.handleChange('exerciseName'),
                                                     value: this.state.exerciseName
                                                 }}
                                             />
