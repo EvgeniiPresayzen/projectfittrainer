@@ -16,6 +16,22 @@ import  {withMultipleDates, defaultMultipleDateInterpolation, Calendar } from 'r
 import 'react-infinite-calendar/styles.css';
 
 class Dashboard extends React.Component {
+    state = {
+        selectDate: [
+            {
+                data: new Date(),
+            },
+            {
+                data: '2018, 10, 27'
+            },
+            {
+                data: '2018, 10, 25'
+            },
+            {
+                data: '2018, 10, 23'
+            },
+        ]
+    };
   render() {
     return (
       <div>
@@ -30,11 +46,11 @@ class Dashboard extends React.Component {
                 <Card>
                     <InfiniteCalendar
                         Component={withMultipleDates(Calendar)}
-                        selected={[
-                            new Date(2018, 9, 27),
-                            new Date(),
-                            new Date(2018, 9, 25)
-                        ]}
+                        selected={
+                            this.state.selectDate.map(item => {
+                                return item.data
+                            })
+                        }
                         width="100%"
                         interpolateSelection={defaultMultipleDateInterpolation}
                     />
