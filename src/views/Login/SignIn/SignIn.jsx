@@ -44,10 +44,6 @@ class NewExercise extends React.Component {
         showPassword: false,
     };
 
-    handleChange = prop => event => {
-        this.setState({ [prop]: event.target.value });
-    };
-
     handleClickShowPassword = () => {
         this.setState(state => ({ showPassword: !state.showPassword }));
     };
@@ -58,6 +54,15 @@ class NewExercise extends React.Component {
         });
     };
 
+    handleSubmit = event => {
+        event.preventDefault();
+        let form = {
+            email: this.state.email,
+            password: this.state.password
+        };
+        console.log(form);
+    };
+
 
     render() {
         const { classes }= this.props;
@@ -65,7 +70,7 @@ class NewExercise extends React.Component {
         let typePassword = this.state.showPassword ? 'text' : 'password';
 
         return (
-            <form>
+            <form onSubmit={this.handleSubmit}>
                 <GridContainer>
                     <GridItem xs={12} sm={12} md={12}>
                         <Card>
@@ -83,17 +88,19 @@ class NewExercise extends React.Component {
                                                 fullWidth: true
                                             }}
                                             inputProps={{
+                                                onChange:this.handleChange('email'),
                                                 type: "email"
                                             }}
                                         />
                                         <CustomInput
                                             labelText="Password"
                                             id="password"
-                                            onChange={this.handleChange('password')}
+
                                             formControlProps={{
                                                 fullWidth: true
                                             }}
                                             inputProps={{
+                                                onChange:this.handleChange('password'),
                                                 type:typePassword,
                                                 endAdornment: (
                                                     <InputAdornment variant="filled" position="end">
@@ -111,7 +118,7 @@ class NewExercise extends React.Component {
                                 </GridContainer>
                             </CardBody>
                             <CardFooter>
-                                <Button color="primary">SIGN IN</Button>
+                                <Button color="primary" type="submit">SIGN IN</Button>
                             </CardFooter>
                             <CardFooter>
                                 <a href="#">first time user? sign-up</a>
