@@ -99,17 +99,15 @@ class EditExercise extends React.Component {
     };
 
     handleChange = (name, id) => event => {
-        console.log(id);
-        console.log(this.state);
-        this.setState(state => ({
-            exercises : {
-                ...state.exercises,
-                [id]: {
-                    ...state.exercises[id],
-                    [name]: event.target.value
-                }
-            }
-        }));
+        const items = this.state.exercises[id];
+        items[name] = event.target.value;
+
+        // re-render
+        this.forceUpdate();
+    };
+
+    handleSubmit = event => {
+        event.preventDefault();
         console.log(this.state);
     };
 
@@ -171,21 +169,23 @@ class EditExercise extends React.Component {
             )
         });
         return (
-            <GridContainer>
-                <GridItem xs={12} sm={12} md={12}>
-                    <Card>
-                        <CardHeader color="primary">
-                            <h4 className={classes.cardTitleWhite}>Edit exercise</h4>
-                        </CardHeader>
-                        <CardBody>
-                                {list}
-                        </CardBody>
-                        <CardFooter>
-                            <Button color="primary">Update EXERCISE</Button>
-                        </CardFooter>
-                    </Card>
-                </GridItem>
-            </GridContainer>
+            <form onSubmit={this.handleSubmit}>
+                <GridContainer>
+                    <GridItem xs={12} sm={12} md={12}>
+                        <Card>
+                            <CardHeader color="primary">
+                                <h4 className={classes.cardTitleWhite}>Edit exercise</h4>
+                            </CardHeader>
+                            <CardBody>
+                                    {list}
+                            </CardBody>
+                            <CardFooter>
+                                <Button color="primary" type="submit">Update EXERCISE</Button>
+                            </CardFooter>
+                        </Card>
+                    </GridItem>
+                </GridContainer>
+            </form>
         );
     }
 }
