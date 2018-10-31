@@ -1,5 +1,4 @@
 import React from "react";
-import { Link } from 'react-router-dom'
 // @material-ui/core components
 import withStyles from "@material-ui/core/styles/withStyles";
 // core components
@@ -106,9 +105,9 @@ class NewWorkout extends React.Component {
     handleChange = (name, id) => event => {
         const items = this.state.workout[id];
         items[name] = event.target.value;
-
-        // re-render
-        this.forceUpdate();
+        this.setState({
+            exercise: items
+        });
     };
 
     handleSubmit = event => {
@@ -200,7 +199,7 @@ class NewWorkout extends React.Component {
                                 <h4 className={classes.cardTitleWhite}>Edit workout</h4>
                             </CardHeader>
                             <CardBody>
-                                <Link to='/new_exercise'><Button color="primary">ADD EXERCISE</Button></Link>
+                                <Button color="primary">ADD EXERCISE</Button>
                                 {lists}
                             </CardBody>
                             <CardFooter>

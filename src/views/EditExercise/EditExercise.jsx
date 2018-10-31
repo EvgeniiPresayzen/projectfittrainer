@@ -101,9 +101,9 @@ class EditExercise extends React.Component {
     handleChange = (name, id) => event => {
         const items = this.state.exercises[id];
         items[name] = event.target.value;
-
-        // re-render
-        this.forceUpdate();
+        this.setState({
+            exercise: items
+        });
     };
 
     handleSubmit = event => {
