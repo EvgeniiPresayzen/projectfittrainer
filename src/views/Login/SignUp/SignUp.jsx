@@ -16,7 +16,7 @@ import CardHeader from "components/Card/CardHeader.jsx";
 import CardBody from "components/Card/CardBody.jsx";
 import CardFooter from "components/Card/CardFooter.jsx";
 
-const styles = theme => ({
+const styles = ({
     cardCategoryWhite: {
         color: "rgba(255,255,255,.62)",
         margin: "0",
@@ -39,13 +39,9 @@ const styles = theme => ({
 class NewExercise extends React.Component {
     state = {
         email: '',
-        passwordOne: '',
-        passwordTwo: '',
+        password: '',
+        passwordRepeat: '',
         showPassword: false,
-    };
-
-    handleChange = prop => event => {
-        this.setState({ [prop]: event.target.value });
     };
 
     handleClickShowPassword = () => {
@@ -58,6 +54,18 @@ class NewExercise extends React.Component {
         });
     };
 
+    handleSubmit = event => {
+        event.preventDefault();
+        let formControl = this.state.password === this.state.passwordRepeat ? this.state : null;
+        if (formControl) {
+            let form = {
+                email: this.state.email,
+                password: this.state.password
+            };
+            console.log(form);
+        }
+    };
+
 
     render() {
         const { classes }= this.props;
@@ -65,7 +73,7 @@ class NewExercise extends React.Component {
         let typePassword = this.state.showPassword ? 'text' : 'password';
 
         return (
-            <div>
+            <form onSubmit={this.handleSubmit}>
                 <GridContainer>
                     <GridItem xs={12} sm={12} md={12}>
                         <Card>
@@ -73,7 +81,6 @@ class NewExercise extends React.Component {
                                 <h4 className={classes.cardTitleWhite}>Register with Fit Trainer App</h4>
                                 <p className={classes.cardCategoryWhite}>Please, enter your email and password</p>
                             </CardHeader>
-                            <form autoComlete="off">
                                 <CardBody>
                                     <GridContainer>
                                         <GridItem xs={12} sm={12} md={12}>
@@ -83,15 +90,19 @@ class NewExercise extends React.Component {
                                                 formControlProps={{
                                                     fullWidth: true
                                                 }}
+                                                inputProps={{
+                                                    onChange:this.handleChange('email'),
+                                                    type: "email"
+                                                }}
                                             />
                                             <CustomInput
                                                 labelText="Password"
-                                                id="passwordOne"
-                                                onChange={this.handleChange('passwordTwo')}
+                                                id="password"
                                                 formControlProps={{
                                                     fullWidth: true
                                                 }}
                                                 inputProps={{
+                                                    onChange:this.handleChange('password'),
                                                     type:typePassword,
                                                     endAdornment: (
                                                         <InputAdornment variant="filled" position="end">
@@ -107,12 +118,12 @@ class NewExercise extends React.Component {
                                             />
                                             <CustomInput
                                                 labelText="Repeat Password"
-                                                id="passwordTwo"
-                                                onChange={this.handleChange('passwordOne')}
+                                                id="passwordRepeat"
                                                 formControlProps={{
                                                     fullWidth: true
                                                 }}
                                                 inputProps={{
+                                                    onChange:this.handleChange('passwordRepeat'),
                                                     type:typePassword,
                                                     endAdornment: (
                                                         <InputAdornment variant="filled" position="end">
@@ -130,16 +141,15 @@ class NewExercise extends React.Component {
                                     </GridContainer>
                                 </CardBody>
                                 <CardFooter>
-                                    <Button color="primary">SIGN UP</Button>
+                                    <Button color="primary" type="submit">SIGN UP</Button>
                                 </CardFooter>
                                 <CardFooter>
-                                    <a href="#">already have an account? sign-in</a>
+                                    <a>already have an account? sign-in</a>
                                 </CardFooter>
-                            </form>
                         </Card>
                     </GridItem>
                 </GridContainer>
-            </div>
+            </form>
         );
     }
 }

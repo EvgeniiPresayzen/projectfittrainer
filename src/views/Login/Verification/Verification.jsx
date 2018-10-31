@@ -47,7 +47,7 @@ class NewExercise extends React.Component {
         const { classes }= this.props;
 
         return (
-            <div>
+            <form autoComplete="off">
                 <GridContainer>
                     <GridItem xs={12} sm={12} md={12}>
                         <Card>
@@ -93,12 +93,12 @@ class NewExercise extends React.Component {
                                 <Button color="primary">VERIFY EMAIL</Button>
                             </CardFooter>
                             <CardFooter>
-                                <a href="#">already have an a account? sign up</a>
+                                <a>already have an a account? sign up</a>
                             </CardFooter>
                         </Card>
                     </GridItem>
                 </GridContainer>
-            </div>
+            </form>
         );
     }
 }
