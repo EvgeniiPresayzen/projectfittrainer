@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from 'react-router-dom'
 // @material-ui/core components
 import withStyles from "@material-ui/core/styles/withStyles";
 // core components
@@ -199,7 +200,7 @@ class NewWorkout extends React.Component {
                                 <h4 className={classes.cardTitleWhite}>Edit workout</h4>
                             </CardHeader>
                             <CardBody>
-                                <Button color="primary">ADD EXERCISE</Button>
+                                <Link to='/new_exercise'><Button color="primary">ADD EXERCISE</Button></Link>
                                 {lists}
                             </CardBody>
                             <CardFooter>

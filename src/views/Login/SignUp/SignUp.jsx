@@ -144,7 +144,7 @@ class NewExercise extends React.Component {
                                     <Button color="primary" type="submit">SIGN UP</Button>
                                 </CardFooter>
                                 <CardFooter>
-                                    <Link to='/signin'>already have an account? sign-in</Link>
+                                    <Link to='/sign_in'>already have an account? sign-in</Link>
                                 </CardFooter>
                         </Card>
                     </GridItem>

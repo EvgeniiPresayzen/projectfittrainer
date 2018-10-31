@@ -15,14 +15,14 @@ import Verification from "views/Login/Verification/Verification.jsx";
 
 const dashboardRoutes = [
     {
-        path: "/signin",
+        path: "/sign_in",
         sidebarName: "Sign In",
         navbarName: "Sign In",
         icon: Account,
         component: SignIn
     },
     {
-        path: "/signup",
+        path: "/sign_up",
         sidebarName: "Sign Up",
         navbarName: "Sign Up",
         icon: Account,
@@ -43,28 +43,28 @@ const dashboardRoutes = [
         component: DashboardPage
     },
     {
-        path: "/newexercise",
+        path: "/new_exercise",
         sidebarName: "New Exercise",
         navbarName: "New Exercise",
         icon: Receipt,
         component: NewExercise
     },
     {
-        path: "/editexercise",
+        path: "/edit_exercise",
         sidebarName: "Edit Exercise",
         navbarName: "Edit Exercise",
         icon: Receipt,
         component: EditExercise
     },
     {
-        path: "/newworkout",
+        path: "/new_workout",
         sidebarName: "New Workout",
         navbarName: "New Workout",
         icon: Receipt,
         component: NewWorkout
     },
     {
-        path: "/editworkout",
+        path: "/edit_workout",
         sidebarName: "Edit Workout",
         navbarName: "Edit Workout",
         icon: Receipt,

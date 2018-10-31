@@ -97,7 +97,7 @@ class NewExercise extends React.Component {
                                 <Button color="primary" type="submit">VERIFY EMAIL</Button>
                             </CardFooter>
                             <CardFooter>
-                                <Link to='/signup'>already have an a account? sign up</Link>
+                                <Link to='/sign_up'>already have an a account? sign up</Link>
                             </CardFooter>
                         </Card>
                     </GridItem>
