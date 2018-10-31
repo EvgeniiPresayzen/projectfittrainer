@@ -102,26 +102,32 @@ class NewWorkout extends React.Component {
         ]
     };
 
-    handleChange = name => event => {
-        this.setState({
-            [name]: event.target.value,
-        });
+    handleChange = (name, id) => event => {
+        const items = this.state.workout[id];
+        items[name] = event.target.value;
+
+        // re-render
+        this.forceUpdate();
+    };
+
+    handleSubmit = event => {
+        event.preventDefault();
+        console.log(this.state);
     };
 
     render() {
         const {classes} = this.props;
 
-        let lists = this.state.workout.map(item => {
+        let lists = this.state.workout.map((item, id) => {
             return (
-                <div>
-                    <GridContainer key={item.id}>
+                    <GridContainer key={id}>
                         <GridItem xs={12} sm={12} md={2}>
                             <TextField
                                 select
                                 label="Name Exercise"
                                 fullWidth
                                 value={item.exercise}
-                                onChange={this.handleChange('typeExercise')}
+                                onChange={this.handleChange('exercise', id)}
                                 SelectProps={{
                                     MenuProps: {
                                         className: classes.menu,
@@ -141,8 +147,9 @@ class NewWorkout extends React.Component {
                                 fullWidth
                                 label="Repeat"
                                 value={item.repeat}
-                                onChange={this.handleChange('repeat')}
+                                onChange={this.handleChange('repeat', id)}
                                 margin="normal"
+                                type="number"
                             />
                         </GridItem>
                         <GridItem xs={12} sm={12} md={3}>
@@ -150,8 +157,9 @@ class NewWorkout extends React.Component {
                                 fullWidth
                                 label="Measurement"
                                 value={item.measurement}
-                                onChange={this.handleChange('repeat')}
+                                onChange={this.handleChange('measurement', id)}
                                 margin="normal"
+                                type="number"
                             />
                         </GridItem>
                         <GridItem xs={12} sm={12} md={1}>
@@ -179,26 +187,27 @@ class NewWorkout extends React.Component {
                             <hr/>
                         </GridItem>
                     </GridContainer>
-                </div>
             )
         });
         return (
-            <GridContainer>
-                <GridItem xs={12} sm={12} md={12}>
-                    <Card>
-                        <CardHeader color="primary">
-                            <h4 className={classes.cardTitleWhite}>New workout</h4>
-                        </CardHeader>
-                        <CardBody>
-                            <Button color="primary">ADD EXERCISE</Button>
-                            {lists}
-                        </CardBody>
-                        <CardFooter>
-                            <Button color="primary">CREATE WORKOUT</Button>
-                        </CardFooter>
-                    </Card>
-                </GridItem>
-            </GridContainer>
+            <form onSubmit={this.handleSubmit}>
+                <GridContainer>
+                    <GridItem xs={12} sm={12} md={12}>
+                        <Card>
+                            <CardHeader color="primary">
+                                <h4 className={classes.cardTitleWhite}>New workout</h4>
+                            </CardHeader>
+                            <CardBody>
+                                <Button color="primary">ADD EXERCISE</Button>
+                                {lists}
+                            </CardBody>
+                            <CardFooter>
+                                <Button color="primary" type="submit">CREATE WORKOUT</Button>
+                            </CardFooter>
+                        </Card>
+                    </GridItem>
+                </GridContainer>
+            </form>
         );
     }
 }
