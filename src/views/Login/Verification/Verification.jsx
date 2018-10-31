@@ -34,20 +34,24 @@ const styles = theme => ({
 
 class NewExercise extends React.Component {
     state = {
-
+        email: 'testtestovii@gmail.com',
+        secretKey: '123456789'
     };
 
-    handleChange = name => event => {
-        this.setState({
-            [name]: event.target.value,
-        });
+    handleSubmit = event => {
+        event.preventDefault();
+        let form = {
+            email: this.state.email,
+            secretKey: this.state.secretKey
+        };
+        console.log(form);
     };
 
     render() {
         const { classes }= this.props;
 
         return (
-            <form autoComplete="off">
+            <form autoComplete="off" onSubmit={this.handleSubmit}>
                 <GridContainer>
                     <GridItem xs={12} sm={12} md={12}>
                         <Card>
@@ -69,7 +73,7 @@ class NewExercise extends React.Component {
                                             }}
                                             inputProps={{
                                                 type: "email",
-                                                value: "testtestovii@gmail.com",
+                                                value: this.state.email,
                                                 disabled: true
                                             }}
                                         />
@@ -82,7 +86,7 @@ class NewExercise extends React.Component {
                                             }}
                                             inputProps={{
                                                 type: "password",
-                                                value: "0123456",
+                                                value: this.state.secretKey,
                                                 disabled: true
                                             }}
                                         />
@@ -90,7 +94,7 @@ class NewExercise extends React.Component {
                                 </GridContainer>
                             </CardBody>
                             <CardFooter>
-                                <Button color="primary">VERIFY EMAIL</Button>
+                                <Button color="primary" type="submit">VERIFY EMAIL</Button>
                             </CardFooter>
                             <CardFooter>
                                 <a>already have an a account? sign up</a>
