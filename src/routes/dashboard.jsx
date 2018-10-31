@@ -14,20 +14,20 @@ import SignUp from "views/Login/SignUp/SignUp.jsx";
 import Verification from "views/Login/Verification/Verification.jsx";
 
 const dashboardRoutes = [
-  {
-      path: "/signin",
-      sidebarName: "Sign In",
-      navbarName: "Sign In",
-      icon: Account,
-      component: SignIn
-  },
-  {
-      path: "/signup",
-      sidebarName: "Sign Up",
-      navbarName: "Sign Up",
-      icon: Account,
-      component: SignUp
-  },
+    {
+        path: "/signin",
+        sidebarName: "Sign In",
+        navbarName: "Sign In",
+        icon: Account,
+        component: SignIn
+    },
+    {
+        path: "/signup",
+        sidebarName: "Sign Up",
+        navbarName: "Sign Up",
+        icon: Account,
+        component: SignUp
+    },
     {
         path: "/verification",
         sidebarName: "Email verification",
@@ -35,41 +35,41 @@ const dashboardRoutes = [
         icon: Account,
         component: Verification
     },
-  {
-    path: "/dashboard",
-    sidebarName: "Dashboard",
-    navbarName: "Dashboard",
-    icon: Dashboard,
-    component: DashboardPage
-  },
-  {
-    path: "/newexercise",
-    sidebarName: "New Exercise",
-    navbarName: "New Exercise",
-    icon: Receipt,
-    component: NewExercise
-  },
-  {
-    path: "/editexercise",
-    sidebarName: "Edit Exercise",
-    navbarName: "Edit Exercise",
-    icon: Receipt,
-    component: EditExercise
-  },
-  {
-    path: "/newworkout",
-    sidebarName: "New Workout",
-    navbarName: "New Workout",
-    icon: Receipt,
-    component: NewWorkout
-  },
-  {
-    path: "/editworkout",
-    sidebarName: "Edit Workout",
-    navbarName: "Edit Workout",
-    icon: Receipt,
-    component: EditWorkout
-  },
+    {
+        path: "/dashboard",
+        sidebarName: "Dashboard",
+        navbarName: "Dashboard",
+        icon: Dashboard,
+        component: DashboardPage
+    },
+    {
+        path: "/newexercise",
+        sidebarName: "New Exercise",
+        navbarName: "New Exercise",
+        icon: Receipt,
+        component: NewExercise
+    },
+    {
+        path: "/editexercise",
+        sidebarName: "Edit Exercise",
+        navbarName: "Edit Exercise",
+        icon: Receipt,
+        component: EditExercise
+    },
+    {
+        path: "/newworkout",
+        sidebarName: "New Workout",
+        navbarName: "New Workout",
+        icon: Receipt,
+        component: NewWorkout
+    },
+    {
+        path: "/editworkout",
+        sidebarName: "Edit Workout",
+        navbarName: "Edit Workout",
+        icon: Receipt,
+        component: EditWorkout
+    },
   { redirect: true, path: "/", to: "/dashboard", navbarName: "Redirect" }
 ];
 

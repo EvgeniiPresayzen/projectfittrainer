@@ -1,6 +1,6 @@
 import React from "react";
+import { Link } from 'react-router-dom'
 // @material-ui/core components
-
 import { withStyles } from '@material-ui/core/styles';
 import Visibility from '@material-ui/icons/Visibility';
 import VisibilityOff from '@material-ui/icons/VisibilityOff';
@@ -144,7 +144,7 @@ class NewExercise extends React.Component {
                                     <Button color="primary" type="submit">SIGN UP</Button>
                                 </CardFooter>
                                 <CardFooter>
-                                    <a>already have an account? sign-in</a>
+                                    <Link to='/signin'>already have an account? sign-in</Link>
                                 </CardFooter>
                         </Card>
                     </GridItem>

@@ -1,6 +1,7 @@
 import React from "react";
-// @material-ui/core components
+import { Link } from 'react-router-dom'
 
+// @material-ui/core components
 import { withStyles } from '@material-ui/core/styles';
 
 // core components
@@ -121,7 +122,7 @@ class NewExercise extends React.Component {
                                 <Button color="primary" type="submit">SIGN IN</Button>
                             </CardFooter>
                             <CardFooter>
-                                <a>first time user? sign-up</a>
+                                <Link to='/signup'>first time user? sign-up</Link>
                             </CardFooter>
                         </Card>
                     </GridItem>
