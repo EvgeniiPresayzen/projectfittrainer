@@ -66,6 +66,13 @@ class NewExercise extends React.Component {
         }
     };
 
+    confirmPass = () => {
+        let pass = document.getElementById("password").value;
+        let confPass = document.getElementById("passwordRepeat").value;
+        if(pass !== confPass) {
+            alert('Wrong confirm password !');
+        }
+    };
 
     render() {
         const { classes }= this.props;
@@ -92,7 +99,8 @@ class NewExercise extends React.Component {
                                                 }}
                                                 inputProps={{
                                                     onChange:this.handleChange('email'),
-                                                    type: "email"
+                                                    type: "email",
+                                                    required: true
                                                 }}
                                             />
                                             <CustomInput
@@ -103,6 +111,7 @@ class NewExercise extends React.Component {
                                                 }}
                                                 inputProps={{
                                                     onChange:this.handleChange('password'),
+                                                    required: true,
                                                     type:typePassword,
                                                     endAdornment: (
                                                         <InputAdornment variant="filled" position="end">
@@ -124,6 +133,7 @@ class NewExercise extends React.Component {
                                                 }}
                                                 inputProps={{
                                                     onChange:this.handleChange('passwordRepeat'),
+                                                    required: true,
                                                     type:typePassword,
                                                     endAdornment: (
                                                         <InputAdornment variant="filled" position="end">
@@ -141,7 +151,7 @@ class NewExercise extends React.Component {
                                     </GridContainer>
                                 </CardBody>
                                 <CardFooter>
-                                    <Button color="primary" type="submit">SIGN UP</Button>
+                                    <Button color="primary" type="submit" onClick={this.confirmPass}>SIGN UP</Button>
                                 </CardFooter>
                                 <CardFooter>
                                     <Link to='/sign_in'>already have an account? sign-in</Link>

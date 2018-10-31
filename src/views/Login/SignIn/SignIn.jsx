@@ -90,7 +90,8 @@ class NewExercise extends React.Component {
                                             }}
                                             inputProps={{
                                                 onChange:this.handleChange('email'),
-                                                type: "email"
+                                                type: "email",
+                                                required: true
                                             }}
                                         />
                                         <CustomInput
@@ -102,6 +103,7 @@ class NewExercise extends React.Component {
                                             }}
                                             inputProps={{
                                                 onChange:this.handleChange('password'),
+                                                required: true,
                                                 type:typePassword,
                                                 endAdornment: (
                                                     <InputAdornment variant="filled" position="end">
