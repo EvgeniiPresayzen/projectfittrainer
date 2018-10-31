@@ -108,21 +108,16 @@ class EditExercise extends React.Component {
 
     handleSubmit = event => {
         event.preventDefault();
-        console.log(this.state);
+        console.log(this.state.exercises);
     };
 
-    addExercise = () => {
-        const newExercise = {
-            exercise: '',
-            typeExercise: 'kilograms',
-            repeat: '',
-            measurement: ''
-        };
-        this.state.workout.unshift(newExercise);
+    deleteExercise = id => event => {
+        this.state.exercises.splice(id, 1);
         this.setState({
             workout: this.state.workout,
         });
     };
+
 
     render() {
         const {classes} = this.props;
@@ -171,7 +166,13 @@ class EditExercise extends React.Component {
                         </Button>
                     </GridItem>
                     <GridItem xs={12} sm={12} md={1}>
-                        <Button variant="contained" fullWidth color="primary" className={classes.buttonClose}>
+                        <Button
+                            variant="contained"
+                            fullWidth
+                            color="primary"
+                            className={classes.buttonClose}
+                            onClick={this.deleteExercise(id)}
+                        >
                             <Close className={classes.iconSmall} />
                         </Button>
                     </GridItem>
