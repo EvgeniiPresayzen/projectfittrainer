@@ -12,28 +12,31 @@ import Card from "components/Card/Card.jsx";
 import dashboardStyle from "assets/jss/material-dashboard-react/views/dashboardStyle.jsx";
 
 import InfiniteCalendar from 'react-infinite-calendar';
+import  {withMultipleDates, defaultMultipleDateInterpolation, Calendar } from 'react-infinite-calendar';
 import 'react-infinite-calendar/styles.css';
-
-let today = new Date();
-let lastWeek = new Date(today.getFullYear(), today.getMonth(), today.getDate() - 7);
 
 class Dashboard extends React.Component {
   render() {
     return (
       <div>
         <GridContainer>
-            <GridItem xs={12} sm={12} md={12}>
-                <Button color="primary">ADD NEW EXERCISE</Button>
-                <Button color="primary">ADD NEW WORKOUT</Button>
+            <GridItem xs={12} sm={12} md={6}>
+                <Button color="primary" fullWidth>ADD NEW EXERCISE</Button>
             </GridItem>
-            <GridItem xs={12} sm={6} md={3}>
+            <GridItem xs={12} sm={12} md={6}>
+                <Button color="primary" fullWidth>ADD NEW WORKOUT</Button>
+            </GridItem>
+            <GridItem xs={12} sm={6} md={12}>
                 <Card>
                     <InfiniteCalendar
-                        width={400}
-                        height={600}
-                        selected={today}
-                        disabledDays={[0,6]}
-                        minDate={lastWeek}
+                        Component={withMultipleDates(Calendar)}
+                        selected={[
+                            new Date(2018, 9, 27),
+                            new Date(),
+                            new Date(2018, 9, 25)
+                        ]}
+                        width="100%"
+                        interpolateSelection={defaultMultipleDateInterpolation}
                     />
                 </Card>
           </GridItem>
