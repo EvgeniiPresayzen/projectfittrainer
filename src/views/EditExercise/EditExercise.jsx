@@ -102,7 +102,7 @@ class EditExercise extends React.Component {
         const items = this.state.exercises[id];
         items[name] = event.target.value;
         this.setState({
-            items,
+            exercises: this.state.exercises,
         });
     };
 

@@ -106,7 +106,7 @@ class NewWorkout extends React.Component {
         const items = this.state.workout[id];
         items[name] = event.target.value;
         this.setState({
-            items,
+            workout: this.state.workout,
         });
     };
 
