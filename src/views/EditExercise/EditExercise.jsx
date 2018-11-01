@@ -114,7 +114,7 @@ class EditExercise extends React.Component {
     deleteExercise = id => event => {
         this.state.exercises.splice(id, 1);
         this.setState({
-            workout: this.state.workout,
+            exercises: this.state.exercises,
         });
     };
 
@@ -127,7 +127,7 @@ class EditExercise extends React.Component {
         console.log(from, to);
         this.state.exercises.splice(to,0, this.state.exercises.splice(from,1)[0]);
         this.setState({
-            workout: this.state.workout,
+            exercises: this.state.exercises,
         });
     };
 
@@ -140,7 +140,7 @@ class EditExercise extends React.Component {
         console.log(from, to);
         this.state.exercises.splice(to,0, this.state.exercises.splice(from,1)[0]);
         this.setState({
-            workout: this.state.workout,
+            exercises: this.state.exercises,
         });
     };
 
