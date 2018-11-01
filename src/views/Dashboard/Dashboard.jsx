@@ -62,32 +62,32 @@ class Dashboard extends React.Component {
                 }
             });
         }
-        else {
-            this.setState({
-                selectEditWorkout: {
-                    selectDisplay: false
-                }});
-            if(!this.state.selectsNewWorkout.data[0]) {
-                return this.setState({
-                    selectsNewWorkout: {
-                        data: [
-                            {
-                                date: date
-                            },
-                        ]
-                    }
-                });
-            }
-            else {
-                this.state.selectsNewWorkout.data.push({
-                    date: date
-                });
-                return this.setState({
-                    selectsNewWorkout: this.state.selectsNewWorkout
-                });
 
-            }
+        const newWorkout = this.state.selectsNewWorkout.data.map((item, id) => {
+            return item.data === date ? id : null
+        });
+        console.log(newWorkout);
+
+        if(!newWorkout) {
+            this.state.selectsNewWorkout.data.push({
+                data: date
+            });
+            return this.setState({
+                selectsNewWorkout: this.state.selectsNewWorkout
+            });
         }
+        else {
+            this.state.selectsNewWorkout.data.push({
+                data: date
+            });
+            return this.setState({
+                selectsNewWorkout: this.state.selectsNewWorkout
+            });
+
+        }
+
+
+
     };
 
     selectors = this.state.selectStoreDate.map(item => {
