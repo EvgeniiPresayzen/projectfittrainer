@@ -154,6 +154,7 @@ class NewWorkout extends React.Component {
                                     },
                                 }}
                                 margin="normal"
+                                required
                             >
                                 {exercises.map(option => (
                                     <MenuItem key={option.exerciseName} value={option.exerciseName}>
@@ -170,6 +171,7 @@ class NewWorkout extends React.Component {
                                 onChange={this.handleChange('repeat', id)}
                                 margin="normal"
                                 type="number"
+                                required
                             />
                         </GridItem>
                         <GridItem xs={12} sm={12} md={3}>
@@ -180,6 +182,7 @@ class NewWorkout extends React.Component {
                                 onChange={this.handleChange('measurement', id)}
                                 margin="normal"
                                 type="number"
+                                required
                             />
                         </GridItem>
                         <GridItem xs={12} sm={12} md={1}>

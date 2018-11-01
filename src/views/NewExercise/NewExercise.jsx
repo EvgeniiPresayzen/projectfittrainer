@@ -91,7 +91,8 @@ class NewExercise extends React.Component {
                                                 }}
                                                 inputProps={{
                                                     onChange: this.handleChange('exerciseName'),
-                                                    value: this.state.exerciseName
+                                                    value: this.state.exerciseName,
+                                                    required: true
                                                 }}
                                             />
                                             <TextField
@@ -106,6 +107,7 @@ class NewExercise extends React.Component {
                                                     },
                                                 }}
                                                 margin="normal"
+                                                required
                                             >
                                                 {typeExercise.map(option => (
                                                     <MenuItem key={option.value} value={option.value}>

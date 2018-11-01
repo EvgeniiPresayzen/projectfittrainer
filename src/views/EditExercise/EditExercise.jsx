@@ -132,6 +132,7 @@ class EditExercise extends React.Component {
                           value={item.exerciseName}
                           onChange={this.handleChange('exerciseName', id)}
                           margin="normal"
+                          required
                       />
                   </GridItem>
                   <GridItem xs={12} sm={12} md={3}>
@@ -147,6 +148,7 @@ class EditExercise extends React.Component {
                               },
                           }}
                           margin="normal"
+                          required
                       >
                           {typeExercise.map(option => (
                               <MenuItem key={option.value} value={option.value}>
