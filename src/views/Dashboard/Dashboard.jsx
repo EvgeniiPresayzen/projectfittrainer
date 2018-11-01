@@ -65,6 +65,9 @@ class Dashboard extends React.Component {
 
         const newWorkout = this.state.selectsNewWorkout.data.map((item, id) => {
             return item.data === date ? id : null
+        }).filter(item => {
+            console.log(item);
+            return item ? item : null
         });
         console.log(newWorkout);
 
@@ -118,7 +121,7 @@ class Dashboard extends React.Component {
                     <InfiniteCalendar
                         onSelect={
                             date => {
-                                this.selectorDate(this.format(date));
+                                this.selectorDate(this.format(date);
                                 return date
                             }
                         }
