@@ -118,6 +118,31 @@ class EditExercise extends React.Component {
         });
     };
 
+    moveUp = id => event => {
+        if (id === 0) {
+            return
+        };
+        let from = id;
+        let to = id - 1;
+        console.log(from, to);
+        this.state.exercises.splice(to,0, this.state.exercises.splice(from,1)[0]);
+        this.setState({
+            workout: this.state.workout,
+        });
+    };
+
+    moveDown = id => event => {
+        if (id === this.state.exercises.length-1) {
+            return
+        }
+        let from = id;
+        let to = id + 1;
+        console.log(from, to);
+        this.state.exercises.splice(to,0, this.state.exercises.splice(from,1)[0]);
+        this.setState({
+            workout: this.state.workout,
+        });
+    };
 
     render() {
         const {classes} = this.props;
@@ -158,12 +183,24 @@ class EditExercise extends React.Component {
                       </TextField>
                   </GridItem>
                     <GridItem xs={12} sm={12} md={1}>
-                        <Button variant="contained" fullWidth color="primary" className={classes.buttonArrow}>
+                        <Button
+                            variant="contained"
+                            fullWidth
+                            color="primary"
+                            className={classes.buttonArrow}
+                            onClick={this.moveUp(id)}
+                        >
                             <ArrowUp className={classes.iconSmall} />
                         </Button>
                     </GridItem>
                     <GridItem xs={12} sm={12} md={1}>
-                        <Button variant="contained" fullWidth color="primary" className={classes.buttonArrow}>
+                        <Button
+                            variant="contained"
+                            fullWidth
+                            color="primary"
+                            className={classes.buttonArrow}
+                            onClick={this.moveDown(id)}
+                        >
                             <ArrowDown className={classes.iconSmall} />
                         </Button>
                     </GridItem>
