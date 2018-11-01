@@ -108,7 +108,7 @@ class EditExercise extends React.Component {
 
     handleSubmit = event => {
         event.preventDefault();
-        console.log(this.state.exercises);
+        console.log(this.state);
     };
 
     deleteExercise = id => event => {

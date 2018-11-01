@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { Link } from 'react-router-dom'
+import { Link, Redirect  } from 'react-router-dom'
 // @material-ui/core
 import withStyles from "@material-ui/core/styles/withStyles";
 // core components
@@ -16,26 +16,94 @@ import InfiniteCalendar from 'react-infinite-calendar';
 import  {withMultipleDates, defaultMultipleDateInterpolation, Calendar} from 'react-infinite-calendar';
 import 'react-infinite-calendar/styles.css';
 
-const today = new Date();
-
 class Dashboard extends React.Component {
     state = {
-        selectDate: [
+        selectEditWorkout: {
+            data: '',
+            selectDisplay: false
+        },
+        selectsNewWorkout: {
+            data: [],
+            selectDisplay: false
+        },
+        selectStoreDate: [
             {
-                data: today
+                data: '2018-10-27'
             },
             {
-                data: '2018, 10, 27'
+                data: '2018-10-25'
             },
             {
-                data: '2018, 10, 25'
-            },
-            {
-                data: '2018, 10, 23'
+                data: '2018-10-23'
             },
         ]
     };
+
+    format = date => {
+        const todayYear = date.getFullYear();
+        const todayMonth = +date.getMonth() +1;
+        let todayDate = date.getDate();
+        if (todayDate<10) {
+            todayDate = '0' + todayDate;
+        }
+        return todayYear + '-' + todayMonth + '-' + todayDate;
+    };
+
+    selectorDate = date => {
+        const editWorkout = this.state.selectStoreDate.filter(item => {
+            return item.data === date;
+        });
+        console.log(this.state);
+        if (editWorkout[0]) {
+            this.setState({
+                selectEditWorkout: {
+                    data: editWorkout[0].data,
+                    selectDisplay: true
+                }
+            });
+        }
+        else {
+            this.setState({
+                selectEditWorkout: {
+                    selectDisplay: false
+                }});
+            if(!this.state.selectsNewWorkout.data[0]) {
+                return this.setState({
+                    selectsNewWorkout: {
+                        data: [
+                            {
+                                date: date
+                            },
+                        ]
+                    }
+                });
+            }
+            else {
+                this.state.selectsNewWorkout.data.push({
+                    date: date
+                });
+                return this.setState({
+                    selectsNewWorkout: this.state.selectsNewWorkout
+                });
+
+            }
+        }
+    };
+
+    selectors = this.state.selectStoreDate.map(item => {
+        return item.data
+    });
+
+    searchSelectorState = date => {
+        const searchDate = this.state.selectStoreDate.filter(item => {
+            return item.data === date
+        });
+        return searchDate[0]
+    };
+
   render() {
+
+
     return (
       <div>
         <GridContainer>
@@ -48,23 +116,29 @@ class Dashboard extends React.Component {
             <GridItem xs={12} sm={6} md={12}>
                 <Card>
                     <InfiniteCalendar
+                        onSelect={
+                            date => {
+                                this.selectorDate(this.format(date));
+                                return date
+                            }
+                        }
                         Component={withMultipleDates(Calendar)}
                         selected={
-                            this.state.selectDate.map(item => {
-                                return item.data
-                            })
+                            this.selectors
                         }
                         theme={{
+                            todayColor:'#EC6150',
                             selectionColor: date => {
-                                console.log(date);
-                                console.log(today);
-                                return today ? '#EC6150' : '#26f026';
+                                return this.searchSelectorState(date) ? '#26f026' : '#dce3e4';
                             },
                         }}
                         width="100%"
                         interpolateSelection={defaultMultipleDateInterpolation}
                     />
                 </Card>
+                {console.log(this.state)}
+                {this.state.select === 'edit_workout' ? <Redirect to='/edit_workout'/> : null}
+                {/*this.state.select === 'new_workout' ? <Redirect to='/new_workout'/> : null*/}
           </GridItem>
         </GridContainer>
       </div>
