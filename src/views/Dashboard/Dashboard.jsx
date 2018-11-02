@@ -21,11 +21,11 @@ import 'react-infinite-calendar/styles.css'
 class Dashboard extends React.Component {
   state = {
     selectEditWorkout: {
-      data: '',
+      data: [],
       selectDisplay: false
     },
     selectsNewWorkout: {
-      data: [],
+      data: null,
       selectDisplay: false
     },
     selectStoreDate: [
@@ -64,32 +64,22 @@ class Dashboard extends React.Component {
         }
       })
     }
-
+    /*
     const newWorkout = this.state.selectsNewWorkout.data
-      .map((item, id) => {
-        return item.data === date ? id : null
-      })
-      .filter(item => {
-        console.log(item)
-        return item ? item : null
-      })
-    console.log(newWorkout)
-
-    if (!newWorkout) {
-      this.state.selectsNewWorkout.data.push({
+          .map((item, id) => {
+            return item.data === date ? id : null
+          })
+          .filter(item => {
+            console.log(item)
+            return item ? item : null
+          })
+        console.log(newWorkout)
+     */
+    return this.setState({
+      selectsNewWorkout: {
         data: date
-      })
-      return this.setState({
-        selectsNewWorkout: this.state.selectsNewWorkout
-      })
-    } else {
-      this.state.selectsNewWorkout.data.push({
-        data: date
-      })
-      return this.setState({
-        selectsNewWorkout: this.state.selectsNewWorkout
-      })
-    }
+      }
+    })
   }
 
   selectors = this.state.selectStoreDate.map(item => {
