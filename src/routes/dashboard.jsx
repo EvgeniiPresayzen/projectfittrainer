@@ -5,7 +5,7 @@ import Account from '@material-ui/icons/PermIdentity'
 // core components/views
 import DashboardPage from 'views/Dashboard/Dashboard.jsx'
 import NewExercise from 'views/NewExercise/NewExercise.jsx'
-import EditExercise from 'views/EditExercise/EditExercise.jsx'
+import EditExercises from 'views/EditExercises/EditExercises.jsx'
 import NewWorkout from 'views/NewWorkout/NewWorkout.jsx'
 import EditWorkout from 'views/EditWorkout/EditWorkout.jsx'
 
@@ -50,11 +50,11 @@ const dashboardRoutes = [
     component: NewExercise
   },
   {
-    path: '/edit_exercise',
-    sidebarName: 'Edit Exercise',
-    navbarName: 'Edit Exercise',
+    path: '/edit_exercises',
+    sidebarName: 'Edit Exercises',
+    navbarName: 'Edit Exercises',
     icon: Receipt,
-    component: EditExercise
+    component: EditExercises
   },
   {
     path: '/new_workout',

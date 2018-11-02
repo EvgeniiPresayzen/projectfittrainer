@@ -72,7 +72,7 @@ const typeExercise = [
   }
 ]
 
-class EditExercise extends React.Component {
+class EditExercises extends React.Component {
   state = {
     exercises: [
       {
@@ -244,4 +244,4 @@ class EditExercise extends React.Component {
   }
 }
 
-export default withStyles(styles)(EditExercise)
+export default withStyles(styles)(EditExercises)
