@@ -1,14 +1,14 @@
-import React from "react";
+import React from 'react'
 // nodejs library that concatenates classes
-import classNames from "classnames";
+import classNames from 'classnames'
 // nodejs library to set properties for components
-import PropTypes from "prop-types";
+import PropTypes from 'prop-types'
 // @material-ui/core components
-import withStyles from "@material-ui/core/styles/withStyles";
-// @material-ui/icons
-
+import withStyles from '@material-ui/core/styles/withStyles'
 // core components
-import cardHeaderStyle from "assets/jss/material-dashboard-react/components/cardHeaderStyle.jsx";
+import cardHeaderStyle from 'assets/jss/material-dashboard-react/components/cardHeaderStyle.jsx'
+
+// @material-ui/icons
 
 function CardHeader({ ...props }) {
   const {
@@ -20,36 +20,36 @@ function CardHeader({ ...props }) {
     stats,
     icon,
     ...rest
-  } = props;
+  } = props
   const cardHeaderClasses = classNames({
     [classes.cardHeader]: true,
-    [classes[color + "CardHeader"]]: color,
+    [classes[color + 'CardHeader']]: color,
     [classes.cardHeaderPlain]: plain,
     [classes.cardHeaderStats]: stats,
     [classes.cardHeaderIcon]: icon,
     [className]: className !== undefined
-  });
+  })
   return (
     <div className={cardHeaderClasses} {...rest}>
       {children}
     </div>
-  );
+  )
 }
 
 CardHeader.propTypes = {
   classes: PropTypes.object.isRequired,
   className: PropTypes.string,
   color: PropTypes.oneOf([
-    "warning",
-    "success",
-    "danger",
-    "info",
-    "primary",
-    "rose"
+    'warning',
+    'success',
+    'danger',
+    'info',
+    'primary',
+    'rose'
   ]),
   plain: PropTypes.bool,
   stats: PropTypes.bool,
   icon: PropTypes.bool
-};
+}
 
-export default withStyles(cardHeaderStyle)(CardHeader);
+export default withStyles(cardHeaderStyle)(CardHeader)
