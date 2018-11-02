@@ -21,7 +21,7 @@ import 'react-infinite-calendar/styles.css'
 class Dashboard extends React.Component {
   state = {
     selectEditWorkout: {
-      data: [],
+      data: null,
       selectDisplay: false
     },
     selectsNewWorkout: {
@@ -56,7 +56,7 @@ class Dashboard extends React.Component {
       return item.data === date
     })
     console.log(this.state)
-    if (editWorkout[0]) {
+    if (editWorkout.length > 0) {
       this.setState({
         selectEditWorkout: {
           data: editWorkout[0].data,
@@ -64,17 +64,6 @@ class Dashboard extends React.Component {
         }
       })
     }
-    /*
-    const newWorkout = this.state.selectsNewWorkout.data
-          .map((item, id) => {
-            return item.data === date ? id : null
-          })
-          .filter(item => {
-            console.log(item)
-            return item ? item : null
-          })
-        console.log(newWorkout)
-     */
     return this.setState({
       selectsNewWorkout: {
         data: date
