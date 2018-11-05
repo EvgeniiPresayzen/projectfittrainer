@@ -44,6 +44,15 @@ export const editExerciseStart = (data) => {
   }
 }
 
+export const deleteExercises = (exercises, idx) => {
+  const newEx = exercises.filter((ex, id) => id !== idx);
+  return ({
+    type: actionTypes.EDIT_EXERCISES_DELETE,
+    exercises: newEx
+  })
+
+}
+
 export const setExercises = (types, exercises) => ({
   type: actionTypes.EDIT_EXERCISES_INIT,
   types: types,

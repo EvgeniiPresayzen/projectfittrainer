@@ -80,9 +80,8 @@ class EditExercises extends React.Component {
   }
 
   componentWillMount() {
-    this.props.onInitExercises();
+    this.props.onInitExercises()
   }
-
 
   handleChange = (name, id) => event => {
     const items = this.props.exercises[id]
@@ -98,10 +97,7 @@ class EditExercises extends React.Component {
   }
 
   deleteExercise = id => event => {
-    this.props.exercises.splice(id, 1)
-    this.setState({
-      exercises: this.props.exercises,
-    })
+    this.props.onDeleteExercises(this.props.exercises, id)
   }
 
   moveUp = id => event => {
@@ -130,12 +126,13 @@ class EditExercises extends React.Component {
       exercises: this.props.exercises,
     })
   }
+
   render() {
     const { classes } = this.props
 
     let lists = null
     let form = null
-
+    console.log('NEW PROPS', this.props.exercises)
     if (this.props.exercises) {
 
       lists = this.props.exercises.map((item, id) => {
@@ -221,7 +218,8 @@ class EditExercises extends React.Component {
           </CardHeader>
           {lists}
           <CardFooter>
-            <Button color="primary" type="submit" onClick={() => this.props.onEditExercise(this.props.exercises)}>Update EXERCISE</Button>
+            <Button color="primary" type="submit" onClick={() => this.props.onEditExercise(this.props.exercises)}>Update
+              EXERCISE</Button>
           </CardFooter>
         </Card>
       )
@@ -248,7 +246,8 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
     onEditExercise: (data) => dispatch(actions.editExerciseStart(data)),
-    onInitExercises: () => dispatch(actions.initExercises())
+    onInitExercises: () => dispatch(actions.initExercises()),
+    onDeleteExercises: (exercises, id) => dispatch(actions.deleteExercises(exercises, id))
   }
 }
 
