@@ -1,4 +1,6 @@
 import React from 'react'
+import { connect } from 'react-redux'
+import * as actions from '../../store/actions/index'
 // @material-ui/core components
 import withStyles from '@material-ui/core/styles/withStyles'
 // core components
@@ -74,35 +76,19 @@ const typeExercise = [
 
 class EditExercises extends React.Component {
   state = {
-    exercises: [
-      {
-        exerciseName: 'test#1',
-        typeExercise: 'kilograms'
-      },
-      {
-        exerciseName: 'test#2',
-        typeExercise: 'kilograms'
-      },
-      {
-        exerciseName: 'test#3',
-        typeExercise: 'kilograms'
-      },
-      {
-        exerciseName: 'test#4',
-        typeExercise: 'kilograms'
-      },
-      {
-        exerciseName: 'test#5',
-        typeExercise: 'kilograms'
-      },
-    ]
+    exercises: []
   }
 
+  componentWillMount() {
+    this.props.onInitExercises();
+  }
+
+
   handleChange = (name, id) => event => {
-    const items = this.state.exercises[id]
+    const items = this.props.exercises[id]
     items[name] = event.target.value
     this.setState({
-      exercises: this.state.exercises,
+      exercises: this.props.exercises,
     })
   }
 
@@ -112,9 +98,9 @@ class EditExercises extends React.Component {
   }
 
   deleteExercise = id => event => {
-    this.state.exercises.splice(id, 1)
+    this.props.exercises.splice(id, 1)
     this.setState({
-      exercises: this.state.exercises,
+      exercises: this.props.exercises,
     })
   }
 
@@ -126,117 +112,125 @@ class EditExercises extends React.Component {
     let from = id
     let to = id - 1
     console.log(from, to)
-    this.state.exercises.splice(to, 0, this.state.exercises.splice(from, 1)[0])
+    this.props.exercises.splice(to, 0, this.props.exercises.splice(from, 1)[0])
     this.setState({
-      exercises: this.state.exercises,
+      exercises: this.props.exercises,
     })
   }
 
   moveDown = id => event => {
-    if (id === this.state.exercises.length - 1) {
+    if (id === this.props.exercises.length - 1) {
       return
     }
     let from = id
     let to = id + 1
     console.log(from, to)
-    this.state.exercises.splice(to, 0, this.state.exercises.splice(from, 1)[0])
+    this.props.exercises.splice(to, 0, this.props.exercises.splice(from, 1)[0])
     this.setState({
-      exercises: this.state.exercises,
+      exercises: this.props.exercises,
     })
   }
-
   render() {
     const { classes } = this.props
 
-    let list = this.state.exercises.map((item, id) => {
-      return (
-        <GridContainer key={id}>
-          <GridItem xs={12} sm={12} md={5}>
-            <TextField
-              fullWidth
-              label="Name"
-              value={item.exerciseName}
-              onChange={this.handleChange('exerciseName', id)}
-              margin="normal"
-              required
-            />
-          </GridItem>
-          <GridItem xs={12} sm={12} md={3}>
-            <TextField
-              select
-              label="Measurement type"
-              fullWidth
-              value={item.typeExercise}
-              onChange={this.handleChange('typeExercise', id)}
-              SelectProps={{
-                MenuProps: {
-                  className: classes.menu,
-                },
-              }}
-              margin="normal"
-              required
-            >
-              {typeExercise.map(option => (
-                <MenuItem key={option.value} value={option.value}>
-                  {option.label}
-                </MenuItem>
-              ))}
-            </TextField>
-          </GridItem>
-          <GridItem xs={12} sm={12} md={1}>
-            <Button
-              variant="contained"
-              fullWidth
-              color="primary"
-              className={classes.buttonArrow}
-              onClick={this.moveUp(id)}
-            >
-              <ArrowUp className={classes.iconSmall} />
-            </Button>
-          </GridItem>
-          <GridItem xs={12} sm={12} md={1}>
-            <Button
-              variant="contained"
-              fullWidth
-              color="primary"
-              className={classes.buttonArrow}
-              onClick={this.moveDown(id)}
-            >
-              <ArrowDown className={classes.iconSmall} />
-            </Button>
-          </GridItem>
-          <GridItem xs={12} sm={12} md={1}>
-            <Button
-              variant="contained"
-              fullWidth
-              color="primary"
-              className={classes.buttonClose}
-              onClick={this.deleteExercise(id)}
-            >
-              <Close className={classes.iconSmall} />
-            </Button>
-          </GridItem>
-          <GridItem xs={12} sm={12} md={12}>
-            <hr />
-          </GridItem>
-        </GridContainer>
+    let lists = null
+    let form = null
+
+    if (this.props.exercises) {
+
+      lists = this.props.exercises.map((item, id) => {
+        return (
+          <CardBody key={id}>
+            <GridContainer>
+              <GridItem xs={12} sm={12} md={5}>
+                <TextField
+                  fullWidth
+                  label="Name"
+                  value={item.exerciseName}
+                  onChange={this.handleChange('exerciseName', id)}
+                  margin="normal"
+                  required
+                />
+              </GridItem>
+              <GridItem xs={12} sm={12} md={3}>
+                <TextField
+                  select
+                  label="Measurement type"
+                  fullWidth
+                  value={item.typeExercise}
+                  onChange={this.handleChange('typeExercise', id)}
+                  SelectProps={{
+                    MenuProps: {
+                      className: classes.menu,
+                    },
+                  }}
+                  margin="normal"
+                  required
+                >
+                  {typeExercise.map(option => (
+                    <MenuItem key={option.value} value={option.value}>
+                      {option.label}
+                    </MenuItem>
+                  ))}
+                </TextField>
+              </GridItem>
+              <GridItem xs={12} sm={12} md={1}>
+                <Button
+                  variant="contained"
+                  fullWidth
+                  color="primary"
+                  className={classes.buttonArrow}
+                  onClick={this.moveUp(id)}
+                >
+                  <ArrowUp className={classes.iconSmall} />
+                </Button>
+              </GridItem>
+              <GridItem xs={12} sm={12} md={1}>
+                <Button
+                  variant="contained"
+                  fullWidth
+                  color="primary"
+                  className={classes.buttonArrow}
+                  onClick={this.moveDown(id)}
+                >
+                  <ArrowDown className={classes.iconSmall} />
+                </Button>
+              </GridItem>
+              <GridItem xs={12} sm={12} md={1}>
+                <Button
+                  variant="contained"
+                  fullWidth
+                  color="primary"
+                  className={classes.buttonClose}
+                  onClick={this.deleteExercise(id)}
+                >
+                  <Close className={classes.iconSmall} />
+                </Button>
+              </GridItem>
+              <GridItem xs={12} sm={12} md={12}>
+                <hr />
+              </GridItem>
+            </GridContainer>
+          </CardBody>
+        )
+      })
+      form = (
+        <Card>
+          <CardHeader color="primary">
+            <h4 className={classes.cardTitleWhite}>Edit exercise</h4>
+          </CardHeader>
+          {lists}
+          <CardFooter>
+            <Button color="primary" type="submit" onClick={() => this.props.onEditExercise(this.state.exercises)}>Update EXERCISE</Button>
+          </CardFooter>
+        </Card>
       )
-    })
+    }
     return (
       <form onSubmit={this.handleSubmit}>
         <GridContainer>
           <GridItem xs={12} sm={12} md={12}>
-            <Card>
-              <CardHeader color="primary">
-                <h4 className={classes.cardTitleWhite}>Edit exercise</h4>
-              </CardHeader>
-              <CardBody>
-                {list}
-              </CardBody>
-              <CardFooter>
-                <Button color="primary" type="submit">Update EXERCISE</Button>
-              </CardFooter>
-            </Card>
+            {form}
           </GridItem>
         </GridContainer>
       </form>
@@ -244,4 +238,18 @@ class EditExercises extends React.Component {
   }
 }
 
-export default withStyles(styles)(EditExercises)
+const mapStateToProps = state => {
+  return {
+    exercises: state.editExercise.exercises,
+    types: state.editExercise.types
+  }
+}
+
+const mapDispatchToProps = dispatch => {
+  return {
+    onEditExercise: (data) => dispatch(actions.editExerciseStart(data)),
+    onInitExercises: () => dispatch(actions.initExercises())
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(EditExercises))

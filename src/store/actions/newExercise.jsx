@@ -13,7 +13,7 @@ const typesExercise = [{
     label: 'time'
   }]
 
-export const exerciseStart = (name, type) => {
+export const newExerciseStart = (name, type) => {
   return {
     type: actionTypes.NEW_EXERCISES_START,
     exerciseName: name,

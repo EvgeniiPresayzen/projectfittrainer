@@ -35,8 +35,6 @@ const styles = ({
   }
 })
 
-const typeExercise = []
-
 class NewExercise extends React.Component {
   state = {
     exerciseName: '',
@@ -140,7 +138,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    onNewExercise: (name, type) => dispatch(actions.exerciseStart(name, type)),
+    onNewExercise: (name, type) => dispatch(actions.newExerciseStart(name, type)),
     onInitTypes: () => dispatch(actions.initTypes())
   }
 }

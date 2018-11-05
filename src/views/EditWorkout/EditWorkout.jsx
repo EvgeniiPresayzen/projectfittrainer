@@ -1,4 +1,5 @@
 import React from 'react'
+
 // @material-ui/core components
 import withStyles from '@material-ui/core/styles/withStyles'
 // core components
@@ -50,28 +51,7 @@ const style = {
   }
 }
 
-const exercises = [
-  {
-    exerciseName: 'test#1',
-    typeExercise: 'kilograms'
-  },
-  {
-    exerciseName: 'test#2',
-    typeExercise: 'kilograms'
-  },
-  {
-    exerciseName: 'test#3',
-    typeExercise: 'kilograms'
-  },
-  {
-    exerciseName: 'test#4',
-    typeExercise: 'kilograms'
-  },
-  {
-    exerciseName: 'test#5',
-    typeExercise: 'kilograms'
-  },
-]
+
 
 class NewWorkout extends React.Component {
   state = {
@@ -184,7 +164,7 @@ class NewWorkout extends React.Component {
               margin="normal"
               required
             >
-              {exercises.map(option => (
+              {this.props.types.map(option => (
                 <MenuItem key={option.exerciseName} value={option.exerciseName}>
                   {option.exerciseName}
                 </MenuItem>
@@ -280,5 +260,6 @@ class NewWorkout extends React.Component {
     )
   }
 }
+
 
 export default withStyles(style)(NewWorkout)

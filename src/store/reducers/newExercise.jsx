@@ -8,14 +8,6 @@ const initialState = {
   error: null
 }
 
-const exersiseStart = (state, action) => {
-  const updatedState = {
-    exerciseName: action.exerciseName,
-    exerciseType: action.exerciseType
-  }
-  return
-}
-
 const reducer = (state = initialState, action) => {
   switch (action.type) {
     case actionTypes.NEW_EXERCISES_INIT:
