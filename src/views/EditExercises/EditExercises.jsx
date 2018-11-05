@@ -221,7 +221,7 @@ class EditExercises extends React.Component {
           </CardHeader>
           {lists}
           <CardFooter>
-            <Button color="primary" type="submit" onClick={() => this.props.onEditExercise(this.state.exercises)}>Update EXERCISE</Button>
+            <Button color="primary" type="submit" onClick={() => this.props.onEditExercise(this.props.exercises)}>Update EXERCISE</Button>
           </CardFooter>
         </Card>
       )
