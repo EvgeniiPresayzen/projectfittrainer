@@ -7,6 +7,7 @@ import { applyMiddleware, combineReducers, compose, createStore } from 'redux';
 import thunk from 'redux-thunk';
 
 import editExerciseReducer from './store/reducers/editExercises';
+import newExerciseReducer from './store/reducers/newExercise';
 import 'assets/css/material-dashboard-react.css?v=1.5.0';
 import indexRoutes from 'routes/index.jsx';
 
@@ -16,7 +17,8 @@ const composeEnchancers =
     : null || compose;
 
 const rootReducer = combineReducers({
-  editExercise: editExerciseReducer
+  editExercise: editExerciseReducer,
+  newExercise: newExerciseReducer
 });
 
 const store = createStore(

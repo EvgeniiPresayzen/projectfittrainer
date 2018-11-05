@@ -1,4 +1,7 @@
 import React from 'react'
+import { connect } from 'react-redux'
+import * as actions from '../../store/actions/index'
+
 import { withStyles } from '@material-ui/core/styles'
 import TextField from '@material-ui/core/TextField'
 import MenuItem from '@material-ui/core/MenuItem'
@@ -32,25 +35,16 @@ const styles = ({
   }
 })
 
-const typeExercise = [
-  {
-    value: 'kilograms',
-    label: 'kilograms',
-  },
-  {
-    value: 'kilometers',
-    label: 'kilometers',
-  },
-  {
-    value: 'time',
-    label: 'time',
-  }
-]
+const typeExercise = []
 
 class NewExercise extends React.Component {
   state = {
     exerciseName: '',
-    type: 'kilograms',
+    typeExercise: '',
+  }
+
+  componentDidMount() {
+    this.props.onInitTypes()
   }
 
   handleChange = name => event => {
@@ -67,58 +61,69 @@ class NewExercise extends React.Component {
   render() {
     const { classes } = this.props
 
+    let form = null
+
+    if (this.props.types) {
+      form = (
+        <Card>
+          <CardHeader color="primary">
+            <h4 className={classes.cardTitleWhite}>Create new exercise</h4>
+            <p className={classes.cardCategoryWhite}>Please, add a new exercise name and measurement type</p>
+          </CardHeader>
+          <CardBody>
+            <GridContainer>
+              <GridItem xs={12} sm={12} md={12}>
+                <CustomInput
+                  labelText="Exercise Name"
+                  id="exerciseName"
+                  value={this.state.exerciseName}
+                  formControlProps={{
+                    fullWidth: true
+                  }}
+                  inputProps={{
+                    onChange: this.handleChange('exerciseName'),
+                    value: this.state.exerciseName,
+                    required: true
+                  }}
+                />
+                <TextField
+                  select
+                  label="Measuremen type"
+                  fullWidth
+                  value={this.state.typeExercise}
+                  onChange={this.handleChange('typeExercise')}
+                  SelectProps={{
+                    MenuProps: {
+                      className: classes.menu,
+                    },
+                  }}
+                  margin="normal"
+                  required
+                >
+                  {this.props.types.map(option => (
+                    <MenuItem key={option.value} value={option.value}>
+                      {option.label}
+                    </MenuItem>
+                  ))}
+                </TextField>
+              </GridItem>
+            </GridContainer>
+          </CardBody>
+          <CardFooter>
+            <Button color="primary" type="submit"
+                    onClick={() => this.props.onNewExercise(this.state.exerciseName, this.state.typeExercise)}>CREATE
+              EXERCISE!</Button>
+          </CardFooter>
+        </Card>
+      )
+    }
+
     return (
       <div>
         <form onSubmit={this.handleSubmit}>
           <GridContainer>
             <GridItem xs={12} sm={12} md={12}>
-              <Card>
-                <CardHeader color="primary">
-                  <h4 className={classes.cardTitleWhite}>Create new exercise</h4>
-                  <p className={classes.cardCategoryWhite}>Please, add a new exercise name and measurement type</p>
-                </CardHeader>
-                <CardBody>
-                  <GridContainer>
-                    <GridItem xs={12} sm={12} md={12}>
-                      <CustomInput
-                        labelText="Exercise Name"
-                        id="exerciseName"
-                        formControlProps={{
-                          fullWidth: true
-                        }}
-                        inputProps={{
-                          onChange: this.handleChange('exerciseName'),
-                          value: this.state.exerciseName,
-                          required: true
-                        }}
-                      />
-                      <TextField
-                        select
-                        label="Measuremen type"
-                        fullWidth
-                        value={this.state.type}
-                        onChange={this.handleChange('type')}
-                        SelectProps={{
-                          MenuProps: {
-                            className: classes.menu,
-                          },
-                        }}
-                        margin="normal"
-                        required
-                      >
-                        {typeExercise.map(option => (
-                          <MenuItem key={option.value} value={option.value}>
-                            {option.label}
-                          </MenuItem>
-                        ))}
-                      </TextField>
-                    </GridItem>
-                  </GridContainer>
-                </CardBody>
-                <CardFooter>
-                  <Button color="primary" type="submit">CREATE EXERCISE!</Button>
-                </CardFooter>
-              </Card>
+              {form}
             </GridItem>
           </GridContainer>
         </form>
@@ -127,4 +132,17 @@ class NewExercise extends React.Component {
   }
 }
 
-export default withStyles(styles, { withTheme: true })(NewExercise)
+const mapStateToProps = state => {
+  return {
+    types: state.newExercise.types
+  }
+}
+
+const mapDispatchToProps = dispatch => {
+  return {
+    onNewExercise: (name, type) => dispatch(actions.exerciseStart(name, type)),
+    onInitTypes: () => dispatch(actions.initTypes())
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles, { withTheme: true })(NewExercise))
