@@ -11,6 +11,12 @@ const reducer = (state = initialState, action) => {
   switch (action.type) {
     case actionTypes.EDIT_EXERCISES_INIT:
       return updateObject(state, action)
+    case actionTypes.EDIT_EXERCISES_UP:
+      return updateObject(state, action)
+    case actionTypes.EDIT_EXERCISES_DOWN:
+      return updateObject(state, action)
+    case actionTypes.EDIT_EXERCISES_DELETE:
+      return updateObject(state, action)
     case actionTypes.EDIT_EXERCISES_START:
       return updateObject(state, action)
     case actionTypes.EDIT_EXERCISES_SUCCESS:
