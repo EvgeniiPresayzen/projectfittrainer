@@ -62,6 +62,7 @@ class NewExercise extends React.Component {
     let form = null
 
     if (this.props.types) {
+      console.log(this.props.name, this.props.type, 'NEW EXERCISES')
       form = (
         <Card>
           <CardHeader color="primary">
@@ -74,13 +75,12 @@ class NewExercise extends React.Component {
                 <CustomInput
                   labelText="Exercise Name"
                   id="exerciseName"
-                  value={this.state.exerciseName}
                   formControlProps={{
                     fullWidth: true
                   }}
                   inputProps={{
-                    onChange: this.handleChange('exerciseName'),
-                    value: this.state.exerciseName,
+                    onChange: (e) => this.props.onHandleChangeExercise('exerciseName', e),
+                    value: this.props.name,
                     required: true
                   }}
                 />
@@ -88,8 +88,8 @@ class NewExercise extends React.Component {
                   select
                   label="Measuremen type"
                   fullWidth
-                  value={this.state.typeExercise}
-                  onChange={this.handleChange('typeExercise')}
+                  value={this.props.type}
+                  onChange={(e) => this.props.onHandleChangeExercise('exerciseType', e)}
                   SelectProps={{
                     MenuProps: {
                       className: classes.menu,
@@ -109,7 +109,7 @@ class NewExercise extends React.Component {
           </CardBody>
           <CardFooter>
             <Button color="primary" type="submit"
-                    onClick={() => this.props.onNewExercise(this.state.exerciseName, this.state.typeExercise)}>CREATE
+                    onClick={() => this.props.onNewExercise(this.props.name, this.props.type)}>CREATE
               EXERCISE!</Button>
           </CardFooter>
         </Card>
@@ -132,6 +132,8 @@ class NewExercise extends React.Component {
 
 const mapStateToProps = state => {
   return {
+    name: state.newExercise.exerciseName,
+    type: state.newExercise.exerciseType,
     types: state.newExercise.types
   }
 }
@@ -139,6 +141,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
     onNewExercise: (name, type) => dispatch(actions.newExerciseStart(name, type)),
+    onHandleChangeExercise: (name, e) => dispatch(actions.handleChangeExercise(name, e)),
     onInitTypes: () => dispatch(actions.initTypes())
   }
 }

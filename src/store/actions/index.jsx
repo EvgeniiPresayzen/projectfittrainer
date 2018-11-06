@@ -1,5 +1,6 @@
 export {
   newExerciseStart,
+  handleChangeExercise,
   initTypes
 } from './newExercise';
 
