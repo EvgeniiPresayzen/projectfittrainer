@@ -59,21 +59,6 @@ const styles = {
   },
 }
 
-const typeExercise = [
-  {
-    value: 'kilograms',
-    label: 'kilograms',
-  },
-  {
-    value: 'kilometers',
-    label: 'kilometers',
-  },
-  {
-    value: 'time',
-    label: 'time',
-  }
-]
-
 class EditExercises extends React.Component {
   state = {
     exercises: []
@@ -84,10 +69,10 @@ class EditExercises extends React.Component {
   }
 
   handleChange = (name, id) => event => {
-    const items = this.props.exercises[id]
-    items[name] = event.target.value
+    const item = this.props.exercises[id];
+    item[name] = event.target.value;
     this.setState({
-      exercises: this.props.exercises,
+      exercises: item
     })
   }
 
@@ -96,39 +81,9 @@ class EditExercises extends React.Component {
     console.log(this.state)
   }
 
-  deleteExercise = id => event => {
-    this.props.onDeleteExercises(this.props.exercises, id)
-  }
-
-  moveUp = id => event => {
-    if (id === 0) {
-      return
-    }
-
-    let from = id
-    let to = id - 1
-    console.log(from, to)
-    this.props.exercises.splice(to, 0, this.props.exercises.splice(from, 1)[0])
-    this.setState({
-      exercises: this.props.exercises,
-    })
-  }
-
-  moveDown = id => event => {
-    if (id === this.props.exercises.length - 1) {
-      return
-    }
-    let from = id
-    let to = id + 1
-    console.log(from, to)
-    this.props.exercises.splice(to, 0, this.props.exercises.splice(from, 1)[0])
-    this.setState({
-      exercises: this.props.exercises,
-    })
-  }
-
   render() {
     const { classes } = this.props
+    const exercises = this.props.exercises;
 
     let lists = null
     let form = null
@@ -164,7 +119,7 @@ class EditExercises extends React.Component {
                   margin="normal"
                   required
                 >
-                  {typeExercise.map(option => (
+                  {this.props.types.map(option => (
                     <MenuItem key={option.value} value={option.value}>
                       {option.label}
                     </MenuItem>
@@ -177,7 +132,7 @@ class EditExercises extends React.Component {
                   fullWidth
                   color="primary"
                   className={classes.buttonArrow}
-                  onClick={this.moveUp(id)}
+                  onClick={() => this.props.onUpExercises(exercises, id)}
                 >
                   <ArrowUp className={classes.iconSmall} />
                 </Button>
@@ -188,7 +143,7 @@ class EditExercises extends React.Component {
                   fullWidth
                   color="primary"
                   className={classes.buttonArrow}
-                  onClick={this.moveDown(id)}
+                  onClick={() => this.props.onDownExercises(exercises, id)}
                 >
                   <ArrowDown className={classes.iconSmall} />
                 </Button>
@@ -199,7 +154,7 @@ class EditExercises extends React.Component {
                   fullWidth
                   color="primary"
                   className={classes.buttonClose}
-                  onClick={this.deleteExercise(id)}
+                  onClick={() => this.props.onDeleteExercises(exercises, id)}
                 >
                   <Close className={classes.iconSmall} />
                 </Button>
@@ -218,7 +173,7 @@ class EditExercises extends React.Component {
           </CardHeader>
           {lists}
           <CardFooter>
-            <Button color="primary" type="submit" onClick={() => this.props.onEditExercise(this.props.exercises)}>Update
+            <Button color="primary" type="submit" onClick={() => this.props.onEditExercise(this.state.exercises)}>Update
               EXERCISE</Button>
           </CardFooter>
         </Card>
@@ -247,7 +202,9 @@ const mapDispatchToProps = dispatch => {
   return {
     onEditExercise: (data) => dispatch(actions.editExerciseStart(data)),
     onInitExercises: () => dispatch(actions.initExercises()),
-    onDeleteExercises: (exercises, id) => dispatch(actions.deleteExercises(exercises, id))
+    onDeleteExercises: (exercises, id) => dispatch(actions.deleteExercises(exercises, id)),
+    onUpExercises: (exercises, id) => dispatch(actions.moveUpExercises(exercises, id)),
+    onDownExercises: (exercises, id) => dispatch(actions.moveDownExercises(exercises, id))
   }
 }
 
