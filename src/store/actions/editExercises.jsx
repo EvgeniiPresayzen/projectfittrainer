@@ -64,7 +64,6 @@ export const moveUpExercises = (exercises, id) => {
       exercises: updateObject
     }
   }
-  return
 }
 
 export const moveDownExercises = (exercises, id) => {
@@ -78,7 +77,6 @@ export const moveDownExercises = (exercises, id) => {
       exercises: updateObject
     }
   }
-  return
 }
 
 export const setExercises = (types, exercises) => ({
