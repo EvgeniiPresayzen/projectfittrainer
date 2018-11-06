@@ -54,7 +54,8 @@ const style = {
 
 class NewWorkout extends React.Component {
   state = {
-    workout: []
+    workout: [],
+    data: '10-09-2018'
   }
 
   componentDidMount() {
@@ -71,7 +72,7 @@ class NewWorkout extends React.Component {
 
   handleSubmit = event => {
     event.preventDefault()
-    this.props.onNewWorkout(this.state.workout)
+    this.props.onNewWorkout(this.state.workout, this.state.data)
   }
 
   addExercise = () => {
@@ -135,8 +136,10 @@ class NewWorkout extends React.Component {
                     className: classes.menu,
                   },
                 }}
+                inputProps={{
+                  required: true
+                }}
                 margin="normal"
-                required
               >
                 {this.props.exercises.map(option => (
                   <MenuItem key={option.exerciseName} value={option.exerciseName}>
@@ -213,22 +216,28 @@ class NewWorkout extends React.Component {
         )
       })
     }
+    let form = null
+    if (this.props.exercises) {
+      form = (
+        <Card>
+          <CardHeader color="primary">
+            <h4 className={classes.cardTitleWhite}>New workout</h4>
+          </CardHeader>
+          <CardBody>
+            <Button color="primary" onClick={this.addExercise}>ADD EXERCISE</Button>
+            {lists}
+          </CardBody>
+          <CardFooter>
+            <Button color="primary" type="submit">CREATE WORKOUT</Button>
+          </CardFooter>
+        </Card>
+      )
+    }
     return (
       <form onSubmit={this.handleSubmit}>
         <GridContainer>
           <GridItem xs={12} sm={12} md={12}>
-            <Card>
-              <CardHeader color="primary">
-                <h4 className={classes.cardTitleWhite}>New workout</h4>
-              </CardHeader>
-              <CardBody>
-                <Button color="primary" onClick={this.addExercise}>ADD EXERCISE</Button>
-                {lists}
-              </CardBody>
-              <CardFooter>
-                <Button color="primary" type="submit">CREATE WORKOUT</Button>
-              </CardFooter>
-            </Card>
+            {form}
           </GridItem>
         </GridContainer>
       </form>

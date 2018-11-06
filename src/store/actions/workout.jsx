@@ -23,9 +23,10 @@ const exercises = [
   },
 ]
 
-export const newWorkoutStart = (workout) => {
+export const newWorkoutStart = (workout, data) => {
   const newWorkoutData = {
-    workout: workout
+    workout: workout,
+    data: data
   }
   console.log(newWorkoutData,'WORK DATA')
   return {
