@@ -8,6 +8,7 @@ import thunk from 'redux-thunk';
 
 //reducers
 import authReducer from './store/reducers/auth';
+import verificationReducer from './store/reducers/verification';
 import editExerciseReducer from './store/reducers/editExercises';
 import newExerciseReducer from './store/reducers/newExercise';
 
@@ -21,6 +22,7 @@ const composeEnchancers =
 
 const rootReducer = combineReducers({
   auth: authReducer,
+  verification: verificationReducer,
   editExercise: editExerciseReducer,
   newExercise: newExerciseReducer
 });

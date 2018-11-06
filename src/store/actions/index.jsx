@@ -1,6 +1,15 @@
 export {
   auth
 } from './auth';
+
+export {
+  verificationInit,
+  verificationStart,
+  verificationSuccess,
+  verificationFall,
+  verification
+} from './verification'
+
 export {
   newExerciseStart,
   handleChangeExercise,
