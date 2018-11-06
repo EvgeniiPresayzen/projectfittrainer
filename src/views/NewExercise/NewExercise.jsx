@@ -36,10 +36,26 @@ const styles = ({
 })
 
 class NewExercise extends React.Component {
+  state = {
+    exerciseName: '',
+    exerciseType: ''
+  }
 
   componentDidMount() {
     this.props.onInitTypes()
   }
+
+  handleChange = name => event => {
+    this.setState({
+      [name]: event.target.value,
+    })
+  }
+
+  handleSubmit = event => {
+    event.preventDefault()
+    this.props.onNewExercise(this.state.exerciseName, this.state.exerciseType)
+  }
+
 
   render() {
     const { classes } = this.props
@@ -47,7 +63,6 @@ class NewExercise extends React.Component {
     let form = null
 
     if (this.props.types) {
-      console.log(this.props.name, this.props.type, 'NEW EXERCISES')
       form = (
         <Card>
           <CardHeader color="primary">
@@ -64,8 +79,8 @@ class NewExercise extends React.Component {
                     fullWidth: true
                   }}
                   inputProps={{
-                    onChange: (e) => this.props.onHandleChangeExercise('exerciseName', e),
-                    value: this.props.name,
+                    onChange: this.handleChange('exerciseName'),
+                    value: this.state.exerciseName,
                     required: true
                   }}
                 />
@@ -73,8 +88,8 @@ class NewExercise extends React.Component {
                   select
                   label="Measuremen type"
                   fullWidth
-                  value={this.props.type}
-                  onChange={(e) => this.props.onHandleChangeExercise('exerciseType', e)}
+                  value={this.state.exerciseType}
+                  onChange={this.handleChange('exerciseType')}
                   SelectProps={{
                     MenuProps: {
                       className: classes.menu,
@@ -93,8 +108,7 @@ class NewExercise extends React.Component {
             </GridContainer>
           </CardBody>
           <CardFooter>
-            <Button color="primary" type="submit"
-                    onClick={() => this.props.onNewExercise(this.props.name, this.props.type)}>CREATE
+            <Button color="primary" type="submit">CREATE
               EXERCISE!</Button>
           </CardFooter>
         </Card>

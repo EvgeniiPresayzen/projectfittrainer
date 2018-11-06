@@ -1,4 +1,7 @@
 export {
+  auth
+} from './auth';
+export {
   newExerciseStart,
   handleChangeExercise,
   initTypes

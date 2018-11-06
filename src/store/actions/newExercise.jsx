@@ -14,17 +14,18 @@ const typesExercise = [{
   }]
 
 export const newExerciseStart = (name, type) => {
-  return {
-    type: actionTypes.NEW_EXERCISES_START,
+  const newExercisesData = {
     exerciseName: name,
     exerciseType: type
+  }
+  console.log(newExercisesData,'NEW EXERCISE DATA')
+  return {
+    type: actionTypes.NEW_EXERCISES_START
   }
 }
 
 export const handleChangeExercise = (name, e) => {
   const updateObject = e.target.value
-  console.log('UPDATE', name)
-  console.log('UPDATE', updateObject)
   return {
     type: actionTypes.NEW_EXERCISES_UPDATE,
     [name]: updateObject

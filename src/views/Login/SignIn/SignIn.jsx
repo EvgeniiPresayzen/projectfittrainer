@@ -1,5 +1,7 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
+import { connect } from 'react-redux'
+import * as actions from '../../../store/actions/index'
 // @material-ui/core components
 import { withStyles } from '@material-ui/core/styles'
 // core components
@@ -54,11 +56,7 @@ class NewExercise extends React.Component {
 
   handleSubmit = event => {
     event.preventDefault()
-    let form = {
-      email: this.state.email,
-      password: this.state.password
-    }
-    console.log(form)
+    this.props.onAuth(this.state.email, this.state.password)
   }
 
   render() {
@@ -130,4 +128,10 @@ class NewExercise extends React.Component {
   }
 }
 
-export default withStyles(styles, { withTheme: true })(NewExercise)
+const mapDispatchToProps = dispatch => {
+  return {
+      onAuth : (email, password) => dispatch(actions.auth(email, password))
+  }
+}
+
+export default connect(null, mapDispatchToProps)(withStyles(styles, { withTheme: true })(NewExercise))
