@@ -36,24 +36,9 @@ const styles = ({
 })
 
 class NewExercise extends React.Component {
-  state = {
-    exerciseName: '',
-    typeExercise: '',
-  }
 
   componentDidMount() {
     this.props.onInitTypes()
-  }
-
-  handleChange = name => event => {
-    this.setState({
-      [name]: event.target.value,
-    })
-  }
-
-  handleSubmit = event => {
-    event.preventDefault()
-    console.log(this.state)
   }
 
   render() {
