@@ -1,4 +1,6 @@
 import React from 'react'
+import { connect } from 'react-redux'
+import * as actions from '../../store/actions'
 // @material-ui/core components
 import withStyles from '@material-ui/core/styles/withStyles'
 // core components
@@ -50,78 +52,33 @@ const style = {
   }
 }
 
-const exercises = [
-  {
-    exerciseName: 'test#1',
-    typeExercise: 'kilograms'
-  },
-  {
-    exerciseName: 'test#2',
-    typeExercise: 'kilograms'
-  },
-  {
-    exerciseName: 'test#3',
-    typeExercise: 'kilograms'
-  },
-  {
-    exerciseName: 'test#4',
-    typeExercise: 'kilograms'
-  },
-  {
-    exerciseName: 'test#5',
-    typeExercise: 'kilograms'
-  },
-]
-
 class NewWorkout extends React.Component {
   state = {
-    workout: [
-      {
-        exercise: 'test#1',
-        typeExercise: 'kilograms',
-        repeat: '2',
-        measurement: '5'
-      },
-      {
-        exercise: 'test#2',
-        typeExercise: 'kilograms',
-        repeat: '3',
-        measurement: '3'
-      },
-      {
-        exercise: 'test#3',
-        typeExercise: 'kilograms',
-        repeat: '4',
-        measurement: '2'
-      },
-      {
-        exercise: 'test#4',
-        typeExercise: 'kilograms',
-        repeat: '1',
-        measurement: '3'
-      },
-    ]
+    workout: []
+  }
+
+  componentDidMount() {
+    this.props.onInitExercises()
   }
 
   handleChange = (name, id) => event => {
     const items = this.state.workout[id]
     items[name] = event.target.value
     this.setState({
-      workout: this.state.workout,
+      workout: this.state.workout
     })
   }
 
   handleSubmit = event => {
     event.preventDefault()
-    console.log(this.state)
+    this.props.onNewWorkout(this.state.workout)
   }
 
   addExercise = () => {
     const newExercise = {
       exercise: '',
-      typeExercise: 'kilograms',
-      repeat: '',
-      measurement: ''
+      repeat: 0,
+      measurement: 0
     }
     this.state.workout.unshift(newExercise)
     this.setState({
@@ -130,30 +87,26 @@ class NewWorkout extends React.Component {
   }
 
   moveUp = id => event => {
-    if (id === 0) {
-      return
+    if (id !== 0) {
+      let from = id
+      let to = id - 1
+      console.log(from, to)
+      this.state.workout.splice(to, 0, this.state.workout.splice(from, 1)[0])
+      this.setState({
+        workout: this.state.workout,
+      })
     }
-
-    let from = id
-    let to = id - 1
-    console.log(from, to)
-    this.state.workout.splice(to, 0, this.state.workout.splice(from, 1)[0])
-    this.setState({
-      workout: this.state.workout,
-    })
   }
 
   moveDown = id => event => {
-    if (id === this.state.workout.length - 1) {
-      return
+    if (id !== this.state.workout.length - 1) {
+      let from = id
+      let to = id + 1
+      this.state.workout.splice(to, 0, this.state.workout.splice(from, 1)[0])
+      this.setState({
+        workout: this.state.workout,
+      })
     }
-    let from = id
-    let to = id + 1
-    console.log(from, to)
-    this.state.workout.splice(to, 0, this.state.workout.splice(from, 1)[0])
-    this.setState({
-      workout: this.state.workout,
-    })
   }
 
   deleteExercise = id => event => {
@@ -165,99 +118,101 @@ class NewWorkout extends React.Component {
 
   render() {
     const { classes } = this.props
+    let lists = null
+    if (this.props.exercises && this.state.workout) {
+      lists = this.state.workout.map((item, id) => {
+        return (
+          <GridContainer key={id}>
+            <GridItem xs={12} sm={12} md={2}>
+              <TextField
+                select
+                label="Name Exercise"
+                fullWidth
+                value={item.exercise}
+                onChange={this.handleChange('exercise', id)}
+                SelectProps={{
+                  MenuProps: {
+                    className: classes.menu,
+                  },
+                }}
+                margin="normal"
+                required
+              >
+                {this.props.exercises.map(option => (
+                  <MenuItem key={option.exerciseName} value={option.exerciseName}>
+                    {option.exerciseName}
+                  </MenuItem>
+                ))}
+              </TextField>
+            </GridItem>
+            <GridItem xs={12} sm={12} md={3}>
+              <TextField
+                fullWidth
+                label="Repeat"
+                value={item.repeat}
+                onChange={this.handleChange('repeat', id)}
+                margin="normal"
+                type="number"
+                required
+              />
+            </GridItem>
+            <GridItem xs={12} sm={12} md={3}>
+              <TextField
+                fullWidth
+                label="Measurement"
+                value={item.measurement}
+                onChange={this.handleChange('measurement', id)}
+                margin="normal"
+                type="number"
+                required
+              />
+            </GridItem>
+            <GridItem xs={12} sm={12} md={1}>
+              <div className={classes.typo}>
+                kg
+              </div>
+            </GridItem>
 
-    let lists = this.state.workout.map((item, id) => {
-      return (
-        <GridContainer key={id}>
-          <GridItem xs={12} sm={12} md={2}>
-            <TextField
-              select
-              label="Name Exercise"
-              fullWidth
-              value={item.exercise}
-              onChange={this.handleChange('exercise', id)}
-              SelectProps={{
-                MenuProps: {
-                  className: classes.menu,
-                },
-              }}
-              margin="normal"
-              required
-            >
-              {exercises.map(option => (
-                <MenuItem key={option.exerciseName} value={option.exerciseName}>
-                  {option.exerciseName}
-                </MenuItem>
-              ))}
-            </TextField>
-          </GridItem>
-          <GridItem xs={12} sm={12} md={3}>
-            <TextField
-              fullWidth
-              label="Repeat"
-              value={item.repeat}
-              onChange={this.handleChange('repeat', id)}
-              margin="normal"
-              type="number"
-              required
-            />
-          </GridItem>
-          <GridItem xs={12} sm={12} md={3}>
-            <TextField
-              fullWidth
-              label="Measurement"
-              value={item.measurement}
-              onChange={this.handleChange('measurement', id)}
-              margin="normal"
-              type="number"
-              required
-            />
-          </GridItem>
-          <GridItem xs={12} sm={12} md={1}>
-            <div className={classes.typo}>
-              kg
-            </div>
-          </GridItem>
-
-          <GridItem xs={12} sm={12} md={1}>
-            <Button
-              variant="contained"
-              fullWidth
-              color="primary"
-              className={classes.buttonArrow}
-              onClick={this.moveUp(id)}
-            >
-              <ArrowUp className={classes.iconSmall} />
-            </Button>
-          </GridItem>
-          <GridItem xs={12} sm={12} md={1}>
-            <Button
-              variant="contained"
-              fullWidth
-              color="primary"
-              className={classes.buttonArrow}
-              onClick={this.moveDown(id)}
-            >
-              <ArrowDown className={classes.iconSmall} />
-            </Button>
-          </GridItem>
-          <GridItem xs={12} sm={12} md={1}>
-            <Button
-              variant="contained"
-              fullWidth
-              color="primary"
-              className={classes.buttonClose}
-              onClick={this.deleteExercise(id)}
-            >
-              <Close className={classes.iconSmall} />
-            </Button>
-          </GridItem>
-          <GridItem xs={12} sm={12} md={12}>
-            <hr />
-          </GridItem>
-        </GridContainer>
-      )
-    })
+            <GridItem xs={12} sm={12} md={1}>
+              <Button
+                variant="contained"
+                fullWidth
+                color="primary"
+                className={classes.buttonArrow}
+                onClick={this.moveUp(id)}
+              >
+                <ArrowUp className={classes.iconSmall} />
+              </Button>
+            </GridItem>
+            <GridItem xs={12} sm={12} md={1}>
+              <Button
+                variant="contained"
+                fullWidth
+                color="primary"
+                className={classes.buttonArrow}
+                onClick={this.moveDown(id)}
+              >
+                <ArrowDown className={classes.iconSmall} />
+              </Button>
+            </GridItem>
+            <GridItem xs={12} sm={12} md={1}>
+              <Button
+                variant="contained"
+                fullWidth
+                color="primary"
+                className={classes.buttonClose}
+                onClick={this.deleteExercise(id)}
+              >
+                <Close className={classes.iconSmall} />
+              </Button>
+            </GridItem>
+            <GridItem xs={12} sm={12} md={12}>
+              <hr />
+            </GridItem>
+          </GridContainer>
+        )
+      })
+    }
     return (
       <form onSubmit={this.handleSubmit}>
         <GridContainer>
@@ -281,4 +236,17 @@ class NewWorkout extends React.Component {
   }
 }
 
-export default withStyles(style)(NewWorkout)
+const mapStateToProps = state => {
+  return {
+    exercises: state.workout.exerciseNames
+  }
+}
+
+const mapDispatchToProps = dispatch => {
+  return {
+    onNewWorkout: (workout) => dispatch(actions.newWorkoutStart(workout)),
+    onInitExercises: () => dispatch(actions.initWorkoutExercises())
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(withStyles(style)(NewWorkout))

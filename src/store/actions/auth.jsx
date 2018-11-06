@@ -30,10 +30,10 @@ export const auth = (email, password, isSignup) => {
     }
     console.log(authData,'AUTH')
     // запросы
-    let url = '/inSignUp' // ссылка регистрации
-    if (!isSignup) {
-      url = '/inSignIn' // ссылка авторизации
-    }
+  //  let url = '/inSignUp' // ссылка регистрации
+   // if (!isSignup) {
+   //   url = '/inSignIn' // ссылка авторизации
+   // }
     // axios запрос на бек
   }
 }

@@ -45,7 +45,7 @@ export const verification = (email, secretKey) => {
     }
     console.log(authData,'VERIFICATION')
     // запросы
-    let url = '/Verification' // ссылка проверки ключа
+  //  let url = '/Verification' // ссылка проверки ключа
     // axios запрос на бек
   }
 }

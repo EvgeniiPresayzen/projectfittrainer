@@ -24,3 +24,8 @@ export {
   moveUpExercises,
   moveDownExercises
 } from './editExercises';
+
+export {
+  initWorkoutExercises,
+  newWorkoutStart
+} from './workout'

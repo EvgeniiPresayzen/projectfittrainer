@@ -2,9 +2,7 @@ import * as actionTypes from '../actions/actionsTypes'
 import { updateObject } from '../../shared/utility'
 
 const initialState = {
-  data: null,
   exerciseNames: [],
-  workout: [],
   error: null
 }
 

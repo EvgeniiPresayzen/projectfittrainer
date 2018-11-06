@@ -11,6 +11,7 @@ import authReducer from './store/reducers/auth';
 import verificationReducer from './store/reducers/verification';
 import editExerciseReducer from './store/reducers/editExercises';
 import newExerciseReducer from './store/reducers/newExercise';
+import workoutReducer from './store/reducers/workout';
 
 import 'assets/css/material-dashboard-react.css?v=1.5.0';
 import indexRoutes from 'routes/index.jsx';
@@ -24,7 +25,8 @@ const rootReducer = combineReducers({
   auth: authReducer,
   verification: verificationReducer,
   editExercise: editExerciseReducer,
-  newExercise: newExerciseReducer
+  newExercise: newExerciseReducer,
+  workout: workoutReducer
 });
 
 const store = createStore(
