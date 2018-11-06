@@ -131,8 +131,6 @@ class NewExercise extends React.Component {
 
 const mapStateToProps = state => {
   return {
-    name: state.newExercise.exerciseName,
-    type: state.newExercise.exerciseType,
     types: state.newExercise.types
   }
 }
@@ -140,7 +138,6 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
     onNewExercise: (name, type) => dispatch(actions.newExerciseStart(name, type)),
-    onHandleChangeExercise: (name, e) => dispatch(actions.handleChangeExercise(name, e)),
     onInitTypes: () => dispatch(actions.initTypes())
   }
 }
