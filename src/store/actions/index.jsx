@@ -27,5 +27,9 @@ export {
 
 export {
   initWorkoutExercises,
-  newWorkoutStart
+  newWorkoutStart,
+  handleChangeWorkout,
+  deleteWorkout,
+  moveDownWorkout,
+  moveUpWorkout
 } from './workout'

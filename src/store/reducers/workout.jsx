@@ -3,6 +3,7 @@ import { updateObject } from '../../shared/utility'
 
 const initialState = {
   exerciseNames: [],
+  workouts: [],
   error: null
 }
 
@@ -15,7 +16,9 @@ const reducer = (state = initialState, action) => {
     case actionTypes.WORKOUT_SUCCESS:
       return updateObject(state, action)
     case actionTypes.WORKOUT_FAIL:
-      return
+      return updateObject(state, action)
+    case actionTypes.EDIT_WORKOUT_DELETE:
+      return updateObject(state, action)
     default:
       return state
   }
