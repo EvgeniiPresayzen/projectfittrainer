@@ -38,6 +38,7 @@ const exercisesDate = [
 ]
 
 export const editExerciseStart = (data) => {
+  console.log('edit',data)
   return {
     type: actionTypes.EDIT_EXERCISES_START,
     exercises: data
@@ -76,6 +77,16 @@ export const moveDownExercises = (exercises, id) => {
       type: actionTypes.EDIT_EXERCISES_DOWN,
       exercises: updateObject
     }
+  }
+}
+
+export const handleChangeExercises = (name, id, e, exercises) => {
+  const updateObject = [...exercises];
+  const item = updateObject[id];
+  item[name] = e.target.value;
+  return {
+    type: actionTypes.EDIT_EXERCISES_UPDATE,
+    exercises: updateObject
   }
 }
 

@@ -6,6 +6,7 @@ export {
 export {
   editExerciseStart,
   initExercises,
+  handleChangeExercises,
   deleteExercises,
   moveUpExercises,
   moveDownExercises

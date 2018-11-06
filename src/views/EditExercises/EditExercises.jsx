@@ -68,28 +68,22 @@ class EditExercises extends React.Component {
     this.props.onInitExercises()
   }
 
-  handleChange = (name, id) => event => {
-    const item = this.props.exercises[id];
-    item[name] = event.target.value;
-    this.setState({
-      exercises: item
-    })
-  }
-
   handleSubmit = event => {
+    this.setState({
+      exercises: this.props.exercises
+    })
     event.preventDefault()
     console.log(this.state)
   }
 
   render() {
     const { classes } = this.props
-    const exercises = this.props.exercises;
+    const exercises = [...this.props.exercises];
 
     let lists = null
     let form = null
     console.log('NEW PROPS', this.props.exercises)
     if (this.props.exercises) {
-
       lists = this.props.exercises.map((item, id) => {
         return (
           <CardBody key={id}>
@@ -99,7 +93,7 @@ class EditExercises extends React.Component {
                   fullWidth
                   label="Name"
                   value={item.exerciseName}
-                  onChange={this.handleChange('exerciseName', id)}
+                  onChange={(e) => this.props.onHandleChangeExercises('exerciseName', id, e, exercises)}
                   margin="normal"
                   required
                 />
@@ -110,7 +104,7 @@ class EditExercises extends React.Component {
                   label="Measurement type"
                   fullWidth
                   value={item.typeExercise}
-                  onChange={this.handleChange('typeExercise', id)}
+                  onChange={(e) => this.props.onHandleChangeExercises('typeExercise', id, e, exercises)}
                   SelectProps={{
                     MenuProps: {
                       className: classes.menu,
@@ -173,7 +167,7 @@ class EditExercises extends React.Component {
           </CardHeader>
           {lists}
           <CardFooter>
-            <Button color="primary" type="submit" onClick={() => this.props.onEditExercise(this.state.exercises)}>Update
+            <Button color="primary" type="submit" onClick={() => this.props.onEditExercise(exercises)}>Update
               EXERCISE</Button>
           </CardFooter>
         </Card>
@@ -200,7 +194,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    onEditExercise: (data) => dispatch(actions.editExerciseStart(data)),
+    onEditExercise: (exercises) => dispatch(actions.editExerciseStart(exercises)),
+    onHandleChangeExercises: (name, id, e, exercises) => dispatch(actions.handleChangeExercises(name, id, e, exercises)),
     onInitExercises: () => dispatch(actions.initExercises()),
     onDeleteExercises: (exercises, id) => dispatch(actions.deleteExercises(exercises, id)),
     onUpExercises: (exercises, id) => dispatch(actions.moveUpExercises(exercises, id)),
