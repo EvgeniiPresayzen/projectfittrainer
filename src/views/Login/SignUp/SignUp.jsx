@@ -1,5 +1,7 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
+import { connect } from 'react-redux'
+import * as actions from '../../../store/actions/index'
 // @material-ui/core components
 import { withStyles } from '@material-ui/core/styles'
 import Visibility from '@material-ui/icons/Visibility'
@@ -57,11 +59,8 @@ class NewExercise extends React.Component {
     event.preventDefault()
     let formControl = this.state.password === this.state.passwordRepeat ? this.state : null
     if (formControl) {
-      let form = {
-        email: this.state.email,
-        password: this.state.password
-      }
-      console.log(form)
+      const isSignUp = true
+      this.props.onAuth(this.state.email, this.state.password, isSignUp)
     }
   }
 
@@ -163,4 +162,10 @@ class NewExercise extends React.Component {
   }
 }
 
-export default withStyles(styles, { withTheme: true })(NewExercise)
+const mapDispatchToProps = dispatch => {
+  return {
+    onAuth : (email, password, isSignUp) => dispatch(actions.auth(email, password, isSignUp))
+  }
+}
+
+export default connect(null, mapDispatchToProps)(withStyles(styles, { withTheme: true })(NewExercise))
