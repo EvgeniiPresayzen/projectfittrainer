@@ -44,13 +44,41 @@ export const editExerciseStart = (data) => {
   }
 }
 
+
 export const deleteExercises = (exercises, idx) => {
-  const newEx = exercises.filter((ex, id) => id !== idx);
+  const updateObject = exercises.filter((ex, id) => id !== idx);
   return ({
     type: actionTypes.EDIT_EXERCISES_DELETE,
-    exercises: newEx
+    exercises: updateObject
   })
+}
 
+export const moveUpExercises = (exercises, id) => {
+  if (id !== 0) {
+    let from = id
+    let to = id - 1
+    const updateObject = [...exercises]
+    updateObject.splice(to, 0, updateObject.splice(from, 1)[0])
+    return {
+      type: actionTypes.EDIT_EXERCISES_UP,
+      exercises: updateObject
+    }
+  }
+  return
+}
+
+export const moveDownExercises = (exercises, id) => {
+  if (id !== exercises.length - 1) {
+    const from = id
+    const to = id + 1
+    const updateObject = [...exercises]
+    updateObject.splice(to, 0, updateObject.splice(from, 1)[0])
+    return {
+      type: actionTypes.EDIT_EXERCISES_DOWN,
+      exercises: updateObject
+    }
+  }
+  return
 }
 
 export const setExercises = (types, exercises) => ({

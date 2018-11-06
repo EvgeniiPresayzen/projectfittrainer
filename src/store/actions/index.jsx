@@ -6,5 +6,7 @@ export {
 export {
   editExerciseStart,
   initExercises,
-  deleteExercises
+  deleteExercises,
+  moveUpExercises,
+  moveDownExercises
 } from './editExercises';
