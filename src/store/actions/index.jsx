@@ -29,6 +29,7 @@ export {
   initWorkoutExercises,
   newWorkoutStart,
   handleChangeWorkout,
+  addWorkout,
   deleteWorkout,
   moveDownWorkout,
   moveUpWorkout

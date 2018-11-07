@@ -54,7 +54,7 @@ const style = {
 
 class NewWorkout extends React.Component {
   state = {
-    workout: []
+    data: '10-10-2018'
   }
 
   componentDidMount() {
@@ -62,69 +62,18 @@ class NewWorkout extends React.Component {
     this.props.onInitWorkouts(setWorkouts)
   }
 
-  handleChange = (name, id) => event => {
-    const items = this.state.workout[id]
-    items[name] = event.target.value
-    this.setState({
-      workout: this.state.workout,
-    })
-  }
-
   handleSubmit = event => {
     event.preventDefault()
-    this.props.onNewWorkout(this.props.workout, this.props.data)
-  }
-
-  addExercise = () => {
-    const newExercise = {
-      exercise: '',
-      typeExercise: 'kilograms',
-      repeat: '',
-      measurement: ''
-    }
-    this.state.workout.unshift(newExercise)
-    this.setState({
-      workout: this.state.workout,
-    })
-  }
-
-  moveUp = id => event => {
-    if (id === 0) {
-      return
-    }
-
-    let from = id
-    let to = id - 1
-    console.log(from, to)
-    this.state.workout.splice(to, 0, this.state.workout.splice(from, 1)[0])
-    this.setState({
-      workout: this.state.workout,
-    })
-  }
-
-  moveDown = id => event => {
-    if (id === this.state.workout.length - 1) {
-      return
-    }
-    let from = id
-    let to = id + 1
-    console.log(from, to)
-    this.state.workout.splice(to, 0, this.state.workout.splice(from, 1)[0])
-    this.setState({
-      workout: this.state.workout,
-    })
-  }
-
-  deleteExercise = id => event => {
-    this.state.workout.splice(id, 1)
-    this.setState({
-      workout: this.state.workout,
-    })
+    this.props.onNewWorkout(this.props.workouts, this.state.data)
   }
 
   render() {
     const { classes } = this.props
+    const workouts = [...this.props.workouts]
 
+    console.log('EditWorkout', workouts)
+
+    let form = null
     let lists = null
     if (this.props.workouts && this.props.exercises) {
       lists = this.props.workouts.map((item, id) => {
@@ -136,7 +85,7 @@ class NewWorkout extends React.Component {
                 label="Name Exercise"
                 fullWidth
                 value={item.exercise}
-                onChange={this.handleChange('exercise', id)}
+                onChange={(e) => this.props.onHandleChangeWorkout('exercise', id, e, workouts)}
                 SelectProps={{
                   MenuProps: {
                     className: classes.menu,
@@ -157,7 +106,7 @@ class NewWorkout extends React.Component {
                 fullWidth
                 label="Repeat"
                 value={item.repeat}
-                onChange={this.handleChange('repeat', id)}
+                onChange={(e) => this.props.onHandleChangeWorkout('repeat', id, e, workouts)}
                 margin="normal"
                 type="number"
                 required
@@ -168,7 +117,7 @@ class NewWorkout extends React.Component {
                 fullWidth
                 label="Measurement"
                 value={item.measurement}
-                onChange={this.handleChange('measurement', id)}
+                onChange={(e) => this.props.onHandleChangeWorkout('measurement', id, e, workouts)}
                 margin="normal"
                 type="number"
                 required
@@ -186,7 +135,7 @@ class NewWorkout extends React.Component {
                 fullWidth
                 color="primary"
                 className={classes.buttonArrow}
-                onClick={this.moveUp(id)}
+                onClick={() => this.props.onUpWorkout(workouts, id)}
               >
                 <ArrowUp className={classes.iconSmall} />
               </Button>
@@ -197,7 +146,7 @@ class NewWorkout extends React.Component {
                 fullWidth
                 color="primary"
                 className={classes.buttonArrow}
-                onClick={this.moveDown(id)}
+                onClick={() => this.props.onDownWorkout(workouts, id)}
               >
                 <ArrowDown className={classes.iconSmall} />
               </Button>
@@ -208,7 +157,7 @@ class NewWorkout extends React.Component {
                 fullWidth
                 color="primary"
                 className={classes.buttonClose}
-                onClick={() => this.props.onDeleteWorkout(this.props.workouts, id)}
+                onClick={() => this.props.onDeleteWorkout(workouts, id)}
               >
                 <Close className={classes.iconSmall} />
               </Button>
@@ -219,7 +168,15 @@ class NewWorkout extends React.Component {
           </GridContainer>
         )
       })
+      form = (
+        <CardBody>
+          <Button color="primary" onClick={() => this.props.onAddWorkout(workouts)}>ADD EXERCISE</Button>
+          {lists}
+        </CardBody>
+      )
     }
+
+
 
     return (
       <form onSubmit={this.handleSubmit}>
@@ -229,10 +186,7 @@ class NewWorkout extends React.Component {
               <CardHeader color="primary">
                 <h4 className={classes.cardTitleWhite}>Edit workout</h4>
               </CardHeader>
-              <CardBody>
-                <Button color="primary" onClick={this.addExercise}>ADD EXERCISE</Button>
-                {lists}
-              </CardBody>
+              {form}
               <CardFooter>
                 <Button color="primary" type="submit">UPDATE WORKOUT</Button>
               </CardFooter>
@@ -253,9 +207,10 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    onNewWorkout: (workout) => dispatch(actions.newWorkoutStart(workout)),
+    onNewWorkout: (workout, data) => dispatch(actions.newWorkoutStart(workout, data)),
     onInitWorkouts: (setWorkouts) => dispatch(actions.initWorkoutExercises(setWorkouts)),
     onHandleChangeWorkout: (name, id, e, workout) => dispatch(actions.handleChangeWorkout(name, id, e, workout)),
+    onAddWorkout: (workouts) => dispatch(actions.addWorkout(workouts)),
     onDeleteWorkout: (workout, id) => dispatch(actions.deleteWorkout(workout, id)),
     onUpWorkout: (workout, id) => dispatch(actions.moveUpWorkout(workout, id)),
     onDownWorkout: (workout, id) => dispatch(actions.moveDownWorkout(workout, id))

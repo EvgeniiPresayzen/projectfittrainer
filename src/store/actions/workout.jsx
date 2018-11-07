@@ -55,57 +55,71 @@ export const newWorkoutStart = (workout, data) => {
     workout: workout,
     data: data
   }
-  console.log(newWorkoutData, 'WORK DATA')
+  console.log(newWorkoutData, 'EDIT WORK DATA')
   return {
     type: actionTypes.WORKOUT_START
   }
 }
 
+export const addWorkout = (workout) => {
+  console.log('ADD WORKOUT', workout)
+  const newExercise = {
+    exercise: '',
+    typeExercise: 'kilograms',
+    repeat: '',
+    measurement: ''
+  }
+  const updateObject = [...workout]
+  updateObject.unshift(newExercise)
+  return {
+    type: actionTypes.EDIT_WORKOUT_ADD,
+    workouts: updateObject
+  }
+}
+
 export const deleteWorkout = (workout, idx) => {
-  const updateObject = workout.filter((ex, id) => id !== idx);
+  const updateObject = workout.filter((ex, id) => id !== idx)
   return ({
     type: actionTypes.EDIT_WORKOUT_DELETE,
     workouts: updateObject
   })
 }
-/*
-* export const moveUpWorkout = (workout, id) => {
+
+export const moveUpWorkout = (workout, id) => {
   if (id !== 0) {
     let from = id
     let to = id - 1
     const updateObject = [...workout]
     updateObject.splice(to, 0, updateObject.splice(from, 1)[0])
     return {
-      type: actionTypes.EDIT_EXERCISES_UP,
+      type: actionTypes.EDIT_WORKOUT_UP,
       workouts: updateObject
     }
   }
 }
 
 export const moveDownWorkout = (workout, id) => {
-  if (id !== exercises.length - 1) {
+  if (id !== workout.length - 1) {
     const from = id
     const to = id + 1
     const updateObject = [...workout]
     updateObject.splice(to, 0, updateObject.splice(from, 1)[0])
     return {
-      type: actionTypes.EDIT_EXERCISES_DOWN,
-      exercises: updateObject
+      type: actionTypes.EDIT_WORKOUT_DOWN,
+      workouts: updateObject
     }
   }
 }
 
 export const handleChangeWorkout = (name, id, e, workout) => {
-  const updateObject = [...workout];
-  const item = updateObject[id];
-  item[name] = e.target.value;
+  const updateObject = [...workout]
+  const item = updateObject[id]
+  item[name] = e.target.value
   return {
-    type: actionTypes.EDIT_EXERCISES_UPDATE,
-    exercises: updateObject
+    type: actionTypes.EDIT_WORKOUT_UPDATE,
+    workouts: updateObject
   }
 }
-* */
-
 
 export const setExercises = (data) => ({
   type: actionTypes.WORKOUT_INIT,

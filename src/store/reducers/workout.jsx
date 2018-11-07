@@ -17,6 +17,14 @@ const reducer = (state = initialState, action) => {
       return updateObject(state, action)
     case actionTypes.WORKOUT_FAIL:
       return updateObject(state, action)
+    case actionTypes.EDIT_WORKOUT_ADD:
+      return updateObject(state, action)
+    case actionTypes.EDIT_WORKOUT_UPDATE:
+      return updateObject(state, action)
+    case actionTypes.EDIT_WORKOUT_UP:
+      return updateObject(state, action)
+    case actionTypes.EDIT_WORKOUT_DOWN:
+      return updateObject(state, action)
     case actionTypes.EDIT_WORKOUT_DELETE:
       return updateObject(state, action)
     default:
