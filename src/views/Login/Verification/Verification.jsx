@@ -1,6 +1,7 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
+
 import * as actions from '../../../store/actions/index'
 // @material-ui/core components
 import { withStyles } from '@material-ui/core/styles'
@@ -40,20 +41,24 @@ class NewExercise extends React.Component {
   }
 
   componentWillMount() {
-    this.props.onVerificationInit()
+    this.setState({
+      email: this.props.match.params.email,
+      secretKey: this.props.match.params.secretkey
+    });
+    console.log('Verification',this.props.match);
   }
 
   handleSubmit = event => {
     event.preventDefault()
-    this.props.onVerification(this.props.email, this.props.secretKey)
+    this.props.onVerification(this.state.email, this.state.secretKey)
   }
 
 
   render() {
-    const { classes } = this.props
+    const { classes } = this.props;
 
     let display = null
-    if (this.props.email && this.props.secretKey) {
+    if (this.props.match.params.email && this.props.match.params.secretkey) {
       display = (
         <Card>
           <CardHeader color="primary">
@@ -72,7 +77,7 @@ class NewExercise extends React.Component {
                   }}
                   inputProps={{
                     type: 'email',
-                    value: this.props.email,
+                    value: this.state.email,
                     disabled: true
                   }}
                 />
@@ -84,7 +89,7 @@ class NewExercise extends React.Component {
                   }}
                   inputProps={{
                     type: 'password',
-                    value: this.props.secretKey,
+                    value: this.state.secretKey,
                     disabled: true
                   }}
                 />

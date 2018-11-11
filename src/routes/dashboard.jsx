@@ -29,7 +29,7 @@ const dashboardRoutes = [
     component: SignUp
   },
   {
-    path: '/verification',
+    path: '/verification/:secretkey&:email',
     sidebarName: 'Email verification',
     navbarName: 'Email verification',
     icon: Account,
