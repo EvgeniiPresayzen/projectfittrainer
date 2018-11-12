@@ -1,4 +1,5 @@
 import * as actionTypes from './actionsTypes'
+import axios from '../../axios-orders';
 
 const typesExercise = [
   {
@@ -14,28 +15,6 @@ const typesExercise = [
     label: 'time'
   }]
 
-const exercisesDate = [
-  {
-    exerciseName: 'test#1',
-    typeExercise: 'kilograms'
-  },
-  {
-    exerciseName: 'test#2',
-    typeExercise: 'kilograms'
-  },
-  {
-    exerciseName: 'test#3',
-    typeExercise: 'kilograms'
-  },
-  {
-    exerciseName: 'test#4',
-    typeExercise: 'kilograms'
-  },
-  {
-    exerciseName: 'test#7',
-    typeExercise: 'kilograms'
-  },
-]
 
 export const editExerciseStart = (data) => {
   console.log('edit',data)
@@ -98,6 +77,15 @@ export const setExercises = (types, exercises) => ({
 
 export const initExercises = () => {
   return dispatch => {
-    dispatch(setExercises(typesExercise, exercisesDate))
+    axios.get('/exercises/all')
+      .then(response => {
+        let exercisesDate = response.data.exercises
+        console.log('test', exercisesDate)
+        dispatch(setExercises(typesExercise, exercisesDate))
+      })
+      .catch(err => {
+        console.log('False')
+      })
+
   }
 }

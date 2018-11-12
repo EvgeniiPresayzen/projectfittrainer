@@ -1,18 +1,16 @@
 import * as actionTypes from './actionsTypes';
 import axios from '../../axios-orders';
 
-
-
 const typesExercise = [{
-    value: 'kg',
+    value: 'kilograms',
     label: 'kilograms'
   },
   {
-    value: 'km',
+    value: 'kilometers',
     label: 'kilometers'
   },
   {
-    value: 'min',
+    value: 'time',
     label: 'time'
   }];
 

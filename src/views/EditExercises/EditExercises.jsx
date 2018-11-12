@@ -17,6 +17,7 @@ import MenuItem from '@material-ui/core/MenuItem/MenuItem'
 import ArrowUp from '@material-ui/icons/ArrowUpward'
 import ArrowDown from '@material-ui/icons/ArrowDownward'
 import Close from '@material-ui/icons/Close'
+import axios from '../../axios-orders';
 
 const styles = {
   cardCategoryWhite: {
@@ -65,6 +66,7 @@ class EditExercises extends React.Component {
   }
 
   componentWillMount() {
+    axios.defaults.headers.common['Authorization'] = 'Bearer ' + localStorage.getItem('token');
     this.props.onInitExercises()
   }
 
@@ -73,7 +75,6 @@ class EditExercises extends React.Component {
       exercises: this.props.exercises
     })
     event.preventDefault()
-    console.log(this.state)
   }
 
   render() {
@@ -87,13 +88,14 @@ class EditExercises extends React.Component {
       lists = this.props.exercises.map((item, id) => {
         return (
           <CardBody key={id}>
+
             <GridContainer>
               <GridItem xs={12} sm={12} md={5}>
                 <TextField
                   fullWidth
                   label="Name"
-                  value={item.exerciseName}
-                  onChange={(e) => this.props.onHandleChangeExercises('exerciseName', id, e, exercises)}
+                  value={item.name}
+                  onChange={(e) => this.props.onHandleChangeExercises('name', id, e, exercises)}
                   margin="normal"
                   required
                 />
@@ -103,8 +105,8 @@ class EditExercises extends React.Component {
                   select
                   label="Measurement type"
                   fullWidth
-                  value={item.typeExercise}
-                  onChange={(e) => this.props.onHandleChangeExercises('typeExercise', id, e, exercises)}
+                  value={item.type}
+                  onChange={(e) => this.props.onHandleChangeExercises('type', id, e, exercises)}
                   SelectProps={{
                     MenuProps: {
                       className: classes.menu,

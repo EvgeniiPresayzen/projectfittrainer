@@ -1,5 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
+import { Redirect } from 'react-router-dom'
 import * as actions from '../../store/actions/index'
 
 import { withStyles } from '@material-ui/core/styles'
@@ -39,7 +40,8 @@ const styles = ({
 class NewExercise extends React.Component {
   state = {
     exerciseName: '',
-    exerciseType: ''
+    exerciseType: '',
+    redirect: false
   }
 
   componentDidMount() {
@@ -56,8 +58,16 @@ class NewExercise extends React.Component {
   handleSubmit = event => {
     event.preventDefault()
     this.props.onNewExercise(this.state.exerciseName, this.state.exerciseType)
+    this.setState({
+      redirect: true
+    })
   }
 
+  renderRedirect = () => {
+    if (this.state.redirect) {
+      return <Redirect to='/' />
+    }
+  }
 
   render() {
     const { classes } = this.props
@@ -119,6 +129,7 @@ class NewExercise extends React.Component {
 
     return (
       <div>
+        {this.renderRedirect()}
         <form onSubmit={this.handleSubmit}>
           <GridContainer>
             <GridItem xs={12} sm={12} md={12}>
