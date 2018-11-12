@@ -1,47 +1,47 @@
-import React from 'react'
-import classNames from 'classnames'
-import { connect } from 'react-redux'
-import * as actions from '../../../src/store/actions/index'
+import React from 'react';
+import classNames from 'classnames';
+import { connect } from 'react-redux';
+import * as actions from '../../../src/store/actions/index';
 
 // @material-ui/core components
-import withStyles from '@material-ui/core/styles/withStyles'
-import MenuItem from '@material-ui/core/MenuItem'
-import MenuList from '@material-ui/core/MenuList'
-import Grow from '@material-ui/core/Grow'
-import Paper from '@material-ui/core/Paper'
-import ClickAwayListener from '@material-ui/core/ClickAwayListener'
-import Hidden from '@material-ui/core/Hidden'
-import Poppers from '@material-ui/core/Popper'
+import withStyles from '@material-ui/core/styles/withStyles';
+import MenuItem from '@material-ui/core/MenuItem';
+import MenuList from '@material-ui/core/MenuList';
+import Grow from '@material-ui/core/Grow';
+import Paper from '@material-ui/core/Paper';
+import ClickAwayListener from '@material-ui/core/ClickAwayListener';
+import Hidden from '@material-ui/core/Hidden';
+import Poppers from '@material-ui/core/Popper';
 // @material-ui/icons
-import Person from '@material-ui/icons/Person'
+import Person from '@material-ui/icons/Person';
 // core components
-import Button from 'components/CustomButtons/Button.jsx'
+import Button from 'components/CustomButtons/Button.jsx';
 
-import headerLinksStyle from 'assets/jss/material-dashboard-react/components/headerLinksStyle.jsx'
+import headerLinksStyle from 'assets/jss/material-dashboard-react/components/headerLinksStyle.jsx';
 
 class HeaderLinks extends React.Component {
   state = {
     open: false
-  }
+  };
   handleToggle = () => {
-    this.setState(state => ({ open: !state.open }))
-  }
+    this.setState(state => ({ open: !state.open }));
+  };
 
   handleClose = event => {
     if (this.anchorEl.contains(event.target)) {
-      return
+      return;
     }
     this.props.onLogout();
-    this.setState({ open: false })
-  }
+    this.setState({ open: false });
+  };
 
   render() {
-    const { classes } = this.props
-    const { open } = this.state
+    const { classes } = this.props;
+    const { open } = this.state;
 
-    let header = null
-    let emailName = null
-    if(this.props.isAuthenticated) {
+    let header = null;
+    let emailName = null;
+    if (this.props.isAuthenticated) {
       emailName = this.props.email;
       header = (
         <div>
@@ -49,7 +49,7 @@ class HeaderLinks extends React.Component {
           <div className={classes.manager}>
             <Button
               buttonRef={node => {
-                this.anchorEl = node
+                this.anchorEl = node;
               }}
               color={window.innerWidth > 959 ? 'transparent' : 'white'}
               justIcon={window.innerWidth > 959}
@@ -59,7 +59,7 @@ class HeaderLinks extends React.Component {
               onClick={this.handleToggle}
               className={classes.buttonLink}
             >
-              <Person className={classes.icons} />
+              <Person className={classes.icons}/>
               <Hidden mdUp implementation="css">
                 <p onClick={this.handleClick} className={classes.linkText}>
                   {emailName}
@@ -103,13 +103,13 @@ class HeaderLinks extends React.Component {
             </Poppers>
           </div>
         </div>
-      )
+      );
     }
     return (
       <div>
-      {header}
+        {header}
       </div>
-    )
+    );
   }
 }
 
@@ -123,7 +123,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
     onLogout: () => dispatch(actions.logout())
-  }
-}
+  };
+};
 
-export default connect(mapStateToProps, mapDispatchToProps)(withStyles(headerLinksStyle)(HeaderLinks))
+export default connect(mapStateToProps, mapDispatchToProps)(withStyles(headerLinksStyle)(HeaderLinks));

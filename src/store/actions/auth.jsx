@@ -1,6 +1,7 @@
 import * as actionTypes from './actionsTypes'
 import axios from '../../axios-orders';
 
+
 export const authStart = () => {
   return {
     type: actionTypes.AUTH_START
@@ -51,18 +52,24 @@ export const auth = (email, password, isSignup) => {
     console.log(authData,'AUTH')
     // запросы
     let url = 'fitTrainer/register'
-
     if (!isSignup) {
-      url = 'fitTrainer/login' // ссылка авторизации
+      axios.post('fitTrainer/login', authData)
+        .then(response => {
+          dispatch(authSuccess(response.data.token, response.data.email));
+        })
+        .catch(err => {
+          dispatch(authFall());
+        })
     }
-    // axios запрос на бек
-    axios.post(url, authData)
+    axios.post('fitTrainer/register', authData)
       .then(response => {
-        dispatch(authSuccess(response.data.token, response.data.email));
+        console.log('True')
       })
       .catch(err => {
-        dispatch(authFall());
+        console.log('False')
       })
+    // axios запрос на бек
+
   }
 }
 

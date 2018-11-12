@@ -7,10 +7,13 @@ export const verificationStart = () => {
   }
 }
 
-export const verificationSuccess = (token) => {
+export const verificationSuccess = (token, email) => {
+  localStorage.setItem('token', token);
+  localStorage.setItem('email', email);
   return {
-    type: actionTypes.VERIFICATION_NEW_USER_SUCCESS,
-    idToken: token
+    type: actionTypes.AUTH_SUCCESS,
+    idToken: token,
+    email: email
   }
 }
 
@@ -32,7 +35,7 @@ export const verification = (email, secretKey) => {
     // axios запрос на бек
     axios.post('fitTrainer/verify', authData)
       .then(response => {
-        dispatch(verificationSuccess(response.data.token));
+        dispatch(verificationSuccess(response.data.token, response.data.email));
       })
       .catch(err => {
         dispatch(verificationFall(err));

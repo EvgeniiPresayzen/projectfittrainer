@@ -14,6 +14,7 @@ import Card from 'components/Card/Card.jsx'
 import CardHeader from 'components/Card/CardHeader.jsx'
 import CardBody from 'components/Card/CardBody.jsx'
 import CardFooter from 'components/Card/CardFooter.jsx'
+import axios from '../../axios-orders';
 // @material-ui/core components
 
 const styles = ({
@@ -42,6 +43,7 @@ class NewExercise extends React.Component {
   }
 
   componentDidMount() {
+    axios.defaults.headers.common['Authorization'] = 'Bearer ' + localStorage.getItem('token');
     this.props.onInitTypes()
   }
 

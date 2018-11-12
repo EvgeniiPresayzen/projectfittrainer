@@ -26,6 +26,8 @@ const authRoutes = [
     icon: Account,
     component: Verification
   },
+
+
   { redirect: true, path: '/', to: '/sign_in', navbarName: 'Redirect' }
 ];
 
