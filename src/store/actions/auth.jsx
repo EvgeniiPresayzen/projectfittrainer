@@ -12,7 +12,8 @@ export const authSuccess = (token, email) => {
   localStorage.setItem('email', email);
   return {
     type: actionTypes.AUTH_SUCCESS,
-    idToken: token
+    idToken: token,
+    email: email
   }
 }
 

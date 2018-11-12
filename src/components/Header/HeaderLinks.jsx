@@ -38,69 +38,87 @@ class HeaderLinks extends React.Component {
   render() {
     const { classes } = this.props
     const { open } = this.state
+
+    let header = null
+    let emailName = null
+    if(this.props.isAuthenticated) {
+      emailName = this.props.email;
+      header = (
+        <div>
+          <div className={classes.manager}> {emailName}</div>
+          <div className={classes.manager}>
+            <Button
+              buttonRef={node => {
+                this.anchorEl = node
+              }}
+              color={window.innerWidth > 959 ? 'transparent' : 'white'}
+              justIcon={window.innerWidth > 959}
+              simple={!(window.innerWidth > 959)}
+              aria-owns={open ? 'menu-list-grow' : null}
+              aria-haspopup="true"
+              onClick={this.handleToggle}
+              className={classes.buttonLink}
+            >
+              <Person className={classes.icons} />
+              <Hidden mdUp implementation="css">
+                <p onClick={this.handleClick} className={classes.linkText}>
+                  {emailName}
+                </p>
+              </Hidden>
+            </Button>
+            <Poppers
+              open={open}
+              anchorEl={this.anchorEl}
+              transition
+              disablePortal
+              className={
+                classNames({ [classes.popperClose]: !open }) +
+                ' ' +
+                classes.pooperNav
+              }
+            >
+              {({ TransitionProps, placement }) => (
+                <Grow
+                  {...TransitionProps}
+                  id="menu-list-grow"
+                  style={{
+                    transformOrigin:
+                      placement === 'bottom' ? 'center top' : 'center bottom'
+                  }}
+                >
+                  <Paper>
+                    <ClickAwayListener onClickAway={this.handleClose}>
+                      <MenuList role="menu">
+                        <MenuItem
+                          onClick={this.handleClose}
+                          className={classes.dropdownItem}
+                        >
+                          Sign out
+                        </MenuItem>
+                      </MenuList>
+                    </ClickAwayListener>
+                  </Paper>
+                </Grow>
+              )}
+            </Poppers>
+          </div>
+        </div>
+      )
+    }
     return (
       <div>
-        <div className={classes.manager}> testoviitest@test.com</div>
-        <div className={classes.manager}>
-          <Button
-            buttonRef={node => {
-              this.anchorEl = node
-            }}
-            color={window.innerWidth > 959 ? 'transparent' : 'white'}
-            justIcon={window.innerWidth > 959}
-            simple={!(window.innerWidth > 959)}
-            aria-owns={open ? 'menu-list-grow' : null}
-            aria-haspopup="true"
-            onClick={this.handleToggle}
-            className={classes.buttonLink}
-          >
-            <Person className={classes.icons} />
-            <Hidden mdUp implementation="css">
-              <p onClick={this.handleClick} className={classes.linkText}>
-                testtestovii@gmail.com
-              </p>
-            </Hidden>
-          </Button>
-          <Poppers
-            open={open}
-            anchorEl={this.anchorEl}
-            transition
-            disablePortal
-            className={
-              classNames({ [classes.popperClose]: !open }) +
-              ' ' +
-              classes.pooperNav
-            }
-          >
-            {({ TransitionProps, placement }) => (
-              <Grow
-                {...TransitionProps}
-                id="menu-list-grow"
-                style={{
-                  transformOrigin:
-                    placement === 'bottom' ? 'center top' : 'center bottom'
-                }}
-              >
-                <Paper>
-                  <ClickAwayListener onClickAway={this.handleClose}>
-                    <MenuList role="menu">
-                      <MenuItem
-                        onClick={this.handleClose}
-                        className={classes.dropdownItem}
-                      >
-                        Sign out
-                      </MenuItem>
-                    </MenuList>
-                  </ClickAwayListener>
-                </Paper>
-              </Grow>
-            )}
-          </Poppers>
-        </div>
+      {header}
       </div>
     )
   }
 }
+
+const mapStateToProps = state => {
+  return {
+    isAuthenticated: state.auth.idToken !== null,
+    email: state.auth.email
+  };
+};
 
 const mapDispatchToProps = dispatch => {
   return {
@@ -108,4 +126,4 @@ const mapDispatchToProps = dispatch => {
   }
 }
 
-export default connect(null, mapDispatchToProps)(withStyles(headerLinksStyle)(HeaderLinks))
+export default connect(mapStateToProps, mapDispatchToProps)(withStyles(headerLinksStyle)(HeaderLinks))
