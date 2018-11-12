@@ -3,6 +3,7 @@ import { updateObject } from '../../shared/utility'
 
 const initialState = {
   idToken: null,
+  email: null,
   loading: false,
   error: null,
   authRedirectPatch: '/'
@@ -17,7 +18,7 @@ const reducer = (state = initialState, action) => {
     case actionTypes.AUTH_FAIL:
       return updateObject(state, action)
     case actionTypes.AUTH_LOGOUT:
-      return updateObject(state, action)
+      return updateObject(state, { idToken: null, email: null })
     case actionTypes.AUTH_REDIRECT_PATCH:
       return updateObject(state, action)
     default:
