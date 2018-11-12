@@ -1,5 +1,8 @@
 import React from 'react'
 import classNames from 'classnames'
+import { connect } from 'react-redux'
+import * as actions from '../../../src/store/actions/index'
+
 // @material-ui/core components
 import withStyles from '@material-ui/core/styles/withStyles'
 import MenuItem from '@material-ui/core/MenuItem'
@@ -28,7 +31,7 @@ class HeaderLinks extends React.Component {
     if (this.anchorEl.contains(event.target)) {
       return
     }
-
+    this.props.onLogout();
     this.setState({ open: false })
   }
 
@@ -99,4 +102,10 @@ class HeaderLinks extends React.Component {
   }
 }
 
-export default withStyles(headerLinksStyle)(HeaderLinks)
+const mapDispatchToProps = dispatch => {
+  return {
+    onLogout : () => dispatch(actions.logout())
+  }
+}
+
+export default connect(null, mapDispatchToProps)(withStyles(headerLinksStyle)(HeaderLinks))

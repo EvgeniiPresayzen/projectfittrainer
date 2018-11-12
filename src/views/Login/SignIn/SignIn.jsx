@@ -37,7 +37,7 @@ const styles = theme => ({
   }
 })
 
-class NewExercise extends React.Component {
+class SignIn extends React.Component {
   state = {
     email: '',
     password: '',
@@ -134,4 +134,4 @@ const mapDispatchToProps = dispatch => {
   }
 }
 
-export default connect(null, mapDispatchToProps)(withStyles(styles, { withTheme: true })(NewExercise))
+export default connect(null, mapDispatchToProps)(withStyles(styles, { withTheme: true })(SignIn))

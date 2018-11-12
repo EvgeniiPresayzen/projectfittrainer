@@ -1,3 +1,4 @@
+import { connect } from 'react-redux';
 // @material-ui/icons
 import Dashboard from '@material-ui/icons/Dashboard'
 import Receipt from '@material-ui/icons/Receipt'
@@ -13,21 +14,10 @@ import SignIn from 'views/Login/SignIn/SignIn.jsx'
 import SignUp from 'views/Login/SignUp/SignUp.jsx'
 import Verification from 'views/Login/Verification/Verification.jsx'
 
-const dashboardRoutes = [
-  {
-    path: '/sign_in',
-    sidebarName: 'Sign In',
-    navbarName: 'Sign In',
-    icon: Account,
-    component: SignIn
-  },
-  {
-    path: '/sign_up',
-    sidebarName: 'Sign Up',
-    navbarName: 'Sign Up',
-    icon: Account,
-    component: SignUp
-  },
+
+const token = localStorage.getItem('token');
+
+let dashboardRoutes = [
   {
     path: '/verification/:secretkey&:email',
     sidebarName: 'Email verification',
@@ -71,6 +61,25 @@ const dashboardRoutes = [
     component: EditWorkout
   },
   { redirect: true, path: '/', to: '/dashboard', navbarName: 'Redirect' }
-]
+];
+if(!token) {
+  dashboardRoutes = [
+    {
+      path: '/sign_in',
+      sidebarName: 'Sign In',
+      navbarName: 'Sign In',
+      icon: Account,
+      component: SignIn
+    },
+    {
+      path: '/sign_up',
+      sidebarName: 'Sign Up',
+      navbarName: 'Sign Up',
+      icon: Account,
+      component: SignUp
+    },
+    { redirect: true, path: '/', to: '/sign_in', navbarName: 'Redirect' }
+  ]
+}
 
 export default dashboardRoutes
