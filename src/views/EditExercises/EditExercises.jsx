@@ -81,7 +81,6 @@ class EditExercises extends React.Component {
 
     let lists = null
     let form = null
-    console.log('NEW PROPS', this.props.exercises)
     if (this.props.exercises) {
       lists = this.props.exercises.map((item, id) => {
         return (

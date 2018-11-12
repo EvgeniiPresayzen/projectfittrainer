@@ -55,7 +55,6 @@ class Dashboard extends React.Component {
     const editWorkout = this.state.selectStoreDate.filter(item => {
       return item.data === date
     })
-    console.log(this.state)
     if (editWorkout.length > 0) {
       this.setState({
         selectEditWorkout: {
@@ -120,7 +119,6 @@ class Dashboard extends React.Component {
                 interpolateSelection={defaultMultipleDateInterpolation}
               />
             </Card>
-            {console.log(this.state)}
             {this.state.select === 'edit_workout' ? (
               <Redirect to="/edit_workout" />
             ) : null}

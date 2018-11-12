@@ -1,7 +1,6 @@
 // @material-ui/icons
 import Dashboard from '@material-ui/icons/Dashboard'
 import Receipt from '@material-ui/icons/Receipt'
-import Account from '@material-ui/icons/PermIdentity'
 // core components/views
 import DashboardPage from 'views/Dashboard/Dashboard.jsx'
 import NewExercise from 'views/NewExercise/NewExercise.jsx'

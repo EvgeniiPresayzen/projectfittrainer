@@ -51,7 +51,6 @@ export const auth = (email, password, isSignup) => {
     }
     console.log(authData,'AUTH')
     // запросы
-    let url = 'fitTrainer/register'
     if (!isSignup) {
       axios.post('fitTrainer/login', authData)
         .then(response => {

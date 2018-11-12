@@ -91,7 +91,6 @@ export const initExercises = () => {
     axios.get('/exercises/all')
       .then(response => {
         let exercisesDate = response.data.exercises
-        console.log('test', exercisesDate)
         dispatch(setExercises(typesExercise, exercisesDate))
       })
       .catch(err => {
