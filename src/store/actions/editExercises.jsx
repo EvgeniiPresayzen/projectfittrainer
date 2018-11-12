@@ -25,12 +25,16 @@ export const editExerciseStart = (data) => {
 }
 
 
-export const deleteExercises = (exercises, idx) => {
-  const updateObject = exercises.filter((ex, id) => id !== idx);
-  return ({
-    type: actionTypes.EDIT_EXERCISES_DELETE,
-    exercises: updateObject
-  })
+export const deleteExercises = (exercises, id) => {
+  return dispatch => {
+    axios.delete('/exercises/delete', {data: {id : id}})
+      .then(response => {
+        dispatch(initExercises())
+      })
+      .catch(err => {
+        console.log('False')
+      })
+  }
 }
 
 export const moveUpExercises = (exercises, id) => {

@@ -150,7 +150,7 @@ class EditExercises extends React.Component {
                   fullWidth
                   color="primary"
                   className={classes.buttonClose}
-                  onClick={() => this.props.onDeleteExercises(exercises, id)}
+                  onClick={() => this.props.onDeleteExercises(exercises, item._id)}
                 >
                   <Close className={classes.iconSmall} />
                 </Button>
