@@ -17,15 +17,22 @@ const typesExercise = [
 
 
 export const editExerciseStart = (data) => {
-  console.log('edit',data)
-  return {
-    type: actionTypes.EDIT_EXERCISES_START,
-    exercises: data
+  return dispatch => {
+    axios.put('/exercises/update', data)
+      .then(response => {
+        dispatch(initExercises())
+      })
+      .catch(err => {
+        console.log('False')
+      })
   }
 }
 
+export const updateExercises = exercises => {
 
-export const deleteExercises = (exercises, id) => {
+}
+
+export const deleteExercises = id => {
   return dispatch => {
     axios.delete('/exercises/delete', {data: {id : id}})
       .then(response => {

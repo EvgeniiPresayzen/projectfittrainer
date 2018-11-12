@@ -61,9 +61,7 @@ const styles = {
 }
 
 class EditExercises extends React.Component {
-  state = {
-    exercises: []
-  }
+
 
   componentWillMount() {
     axios.defaults.headers.common['Authorization'] = 'Bearer ' + localStorage.getItem('token');
@@ -201,7 +199,7 @@ const mapDispatchToProps = dispatch => {
     onInitExercises: () => dispatch(actions.initExercises()),
     onDeleteExercises: (exercises, id) => dispatch(actions.deleteExercises(exercises, id)),
     onUpExercises: (exercises, id) => dispatch(actions.moveUpExercises(exercises, id)),
-    onDownExercises: (exercises, id) => dispatch(actions.moveDownExercises(exercises, id))
+    onDownExercises: (exercises, id) => dispatch(actions.moveDownExercises(exercises, id)),
   }
 }
 
